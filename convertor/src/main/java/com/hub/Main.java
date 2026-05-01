@@ -15,7 +15,7 @@ public class Main extends Application {
         StackPane root = new StackPane(label);
         Scene scene = new Scene(root, 900, 600);
 
-        stage.setTitle("ConverterHubPro");
+        stage.setTitle("Converter+");
         stage.setScene(scene);
         stage.show();
     }
