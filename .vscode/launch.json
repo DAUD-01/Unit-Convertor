@@ -6,7 +6,7 @@
             "name": "Run JavaFX App",
             "request": "launch",
             "mainClass": "com.hub.Main",
-            "vmArgs": "--module-path YOUR_JAVAFX_LIB_PATH --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path C:\\javafx-sdk-26.0.1\\lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
