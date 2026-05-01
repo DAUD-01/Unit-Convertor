@@ -1,0 +1,274 @@
+{
+    "Common": {
+        "Weight": {
+            "type": "factor",
+            "base": "g",
+            "units": {
+                "mg": 1000,
+                "g": 1,
+                "kg": 0.001,
+                "ton": 0.000001,
+                "lb": 0.00220462,
+                "oz": 0.035274,
+                "stone": 0.000157473,
+                "us_ton": 0.00000110231
+            }
+        },
+        "Length": {
+            "type": "factor",
+            "base": "m",
+            "units": {
+                "mm": 1000,
+                "cm": 100,
+                "m": 1,
+                "km": 0.001,
+                "inch": 39.3701,
+                "foot": 3.28084,
+                "yard": 1.09361,
+                "mile": 0.000621371,
+                "nautical_mile": 0.000539957
+            }
+        },
+        "Area": {
+            "type": "factor",
+            "base": "m2",
+            "units": {
+                "m2": 1,
+                "km2": 0.000001,
+                "ft2": 10.7639,
+                "mi2": 0.000000386102,
+                "acre": 0.000247105,
+                "hectare": 0.0001
+            }
+        },
+        "Volume": {
+            "type": "factor",
+            "base": "L",
+            "units": {
+                "ml": 1000,
+                "L": 1,
+                "m3": 0.001,
+                "gallon_us": 0.264172,
+                "quart": 1.05669,
+                "pint": 2.11338,
+                "cup": 4.22675,
+                "fl_oz": 33.814
+            }
+        }
+    },
+    "Finance": {
+        "Discount": {
+            "type": "formula",
+            "inputs": [
+                "price",
+                "discount_percent",
+                "tax_percent"
+            ]
+        },
+        "Interest": {
+            "type": "formula",
+            "subtypes": {
+                "simple": [
+                    "P",
+                    "R",
+                    "T"
+                ],
+                "compound": [
+                    "P",
+                    "R",
+                    "T",
+                    "n"
+                ]
+            }
+        },
+        "ROI": {
+            "type": "formula",
+            "inputs": [
+                "initial_investment",
+                "final_value"
+            ]
+        },
+        "Tax": {
+            "type": "formula",
+            "inputs": [
+                "amount",
+                "tax_percent"
+            ]
+        }
+    },
+    "Science": {
+        "Temperature": {
+            "type": "formula",
+            "units": [
+                "C",
+                "F",
+                "K"
+            ]
+        },
+        "Pressure": {
+            "type": "factor",
+            "base": "Pa",
+            "units": {
+                "Pa": 1,
+                "bar": 0.00001,
+                "psi": 0.000145038,
+                "atm": 0.00000986923,
+                "torr": 0.00750062
+            }
+        },
+        "Force": {
+            "type": "factor",
+            "base": "N",
+            "units": {
+                "N": 1,
+                "kN": 0.001,
+                "lbf": 0.224809,
+                "dyne": 100000
+            }
+        },
+        "Power": {
+            "type": "factor",
+            "base": "W",
+            "units": {
+                "W": 1,
+                "kW": 0.001,
+                "hp": 0.00134102,
+                "ft_lb_min": 44.2537
+            }
+        }
+    },
+    "Computing": {
+        "DataStorage": {
+            "type": "factor",
+            "base": "B",
+            "units": {
+                "bit": 8,
+                "B": 1,
+                "KB": 0.0009765625,
+                "MB": 0.000000953674,
+                "GB": 0.000000000931322,
+                "TB": 0.000000000000909495,
+                "PB": 0.000000000000000888178
+            }
+        },
+        "DataTransfer": {
+            "type": "factor",
+            "base": "bps",
+            "units": {
+                "kbps": 0.001,
+                "Mbps": 0.000001,
+                "Gbps": 0.000000001,
+                "MBps": 0.000000125
+            }
+        },
+        "NumberBase": {
+            "type": "algorithm",
+            "bases": [
+                "decimal",
+                "binary",
+                "hex",
+                "octal"
+            ]
+        }
+    },
+    "Physics": {
+        "Speed": {
+            "type": "factor",
+            "base": "mps",
+            "units": {
+                "mps": 1,
+                "kmh": 3.6,
+                "mph": 2.23694,
+                "knot": 1.94384,
+                "mach": 0.00293867
+            }
+        },
+        "Acceleration": {
+            "type": "factor",
+            "base": "mps2",
+            "units": {
+                "mps2": 1,
+                "ftps2": 3.28084,
+                "g": 0.101972
+            }
+        },
+        "Torque": {
+            "type": "factor",
+            "base": "Nm",
+            "units": {
+                "Nm": 1,
+                "lbft": 0.737562,
+                "dyne_cm": 10000000
+            }
+        },
+        "Energy": {
+            "type": "factor",
+            "base": "J",
+            "units": {
+                "J": 1,
+                "kJ": 0.001,
+                "cal": 0.239006,
+                "kcal": 0.000239006,
+                "Wh": 0.000277778,
+                "kWh": 0.000000277778,
+                "eV": 6.242e18
+            }
+        }
+    },
+    "Health": {
+        "BMI": {
+            "type": "formula",
+            "inputs": [
+                "weight",
+                "height"
+            ]
+        },
+        "BodyFat": {
+            "type": "formula",
+            "inputs": [
+                "gender",
+                "height",
+                "waist",
+                "neck"
+            ]
+        },
+        "Calories": {
+            "type": "formula",
+            "inputs": [
+                "weight",
+                "duration",
+                "MET"
+            ]
+        },
+        "WaterIntake": {
+            "type": "formula",
+            "inputs": [
+                "weight",
+                "activity_level"
+            ]
+        }
+    },
+    "Tools": {
+        "AgeCalculator": {
+            "type": "algorithm",
+            "inputs": [
+                "birthdate"
+            ]
+        },
+        "FuelEfficiency": {
+            "type": "factor",
+            "units": [
+                "mpg",
+                "L_per_100km",
+                "km_per_L"
+            ]
+        },
+        "RomanNumerals": {
+            "type": "algorithm",
+            "range": [
+                1,
+                3999
+            ]
+        }
+    }
+}
