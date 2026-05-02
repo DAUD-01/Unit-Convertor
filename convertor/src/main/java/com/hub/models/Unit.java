@@ -1,7 +1,7 @@
-package com.hub.models;
+// package com.hub.models;
 
-public class Unit {
-    public String name;
-    public String symbol;
-    public double factor;
-}
+// public class Unit {
+// public String name;
+// public String symbol;
+// public double factor;
+// }
