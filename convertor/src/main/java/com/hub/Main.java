@@ -14,14 +14,14 @@ public class Main extends Application {
 
         var data = com.hub.utils.FileLoader.loadData("units.json");
 
-        if (data != null && data.Common != null) {
+        if (data != null && data.Science != null) {
 
-            System.out.println("=== COMMON CATEGORY ===");
+            System.out.println("=== Science CATEGORY ===");
 
-            for (String key : data.Common.keySet()) {
+            for (String key : data.Science.keySet()) {
                 System.out.println("SubCategory: " + key);
 
-                var sub = data.Common.get(key);
+                var sub = data.Science.get(key);
 
                 if (sub.units != null) {
                     for (String unit : sub.units.keySet()) {
