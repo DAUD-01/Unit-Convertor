@@ -51,7 +51,7 @@
                 "gallon_us": 0.264172,
                 "quart": 1.05669,
                 "pint": 2.11338,
-                "cup": 4.22675, 
+                "cup": 4.22675,
                 "fl_oz": 33.814
             }
         }
@@ -98,12 +98,13 @@
     },
     "Science": {
         "Temperature": {
-            "type": "formula",
-            "units": [
-                "C",
-                "F",
-                "K"
-            ]
+            "type": "factor",
+            "base": "C",
+            "units": {
+                "C": 1,
+                "F": 1,
+                "K": 1
+            }
         },
         "Pressure": {
             "type": "factor",
@@ -257,11 +258,12 @@
         },
         "FuelEfficiency": {
             "type": "factor",
-            "units": [
-                "mpg",
-                "L_per_100km",
-                "km_per_L"
-            ]
+            "base": "mpg",
+            "units": {
+                "mpg": 1,
+                "L_per_100km": 1,
+                "km_per_L": 1
+            }
         },
         "RomanNumerals": {
             "type": "algorithm",
