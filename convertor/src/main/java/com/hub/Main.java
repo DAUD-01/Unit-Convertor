@@ -16,7 +16,7 @@ public class Main extends Application {
 
         if (data != null && data.Science != null) {
 
-            System.out.println("=== Science CATEGORY ===");
+            System.out.println("=== SCIENCE CATEGORY ===");
 
             for (String key : data.Science.keySet()) {
                 System.out.println("SubCategory: " + key);
@@ -31,14 +31,14 @@ public class Main extends Application {
             }
         }
 
-        Label label = new Label("Convertor app is running");
+        // Label label = new Label("Convertor app is running");
 
-        StackPane root = new StackPane(label);
-        Scene scene = new Scene(root, 900, 600);
+        // StackPane root = new StackPane(label);
+        // Scene scene = new Scene(root, 900, 600);
 
-        stage.setTitle("Converter+");
-        stage.setScene(scene);
-        stage.show();
+        // stage.setTitle("Converter+");
+        // stage.setScene(scene);
+        // stage.show();
     }
 
     public static void main(String[] args) {
