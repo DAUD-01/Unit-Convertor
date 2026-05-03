@@ -34,24 +34,25 @@ public class Main extends Application {
         // }
         // }
 
-        // Label label = new Label("Convertor app is running");
+        Label label = new Label("Convertor app is running");
 
-        // StackPane root = new StackPane(label);
-        // Scene scene = new Scene(root, 900, 600);
+        StackPane root = new StackPane(label);
+        Scene scene = new Scene(root, 900, 600);
 
-        // stage.setTitle("Converter+");
-        // stage.setScene(scene);
-        // stage.show();
+        stage.setTitle("Converter+");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
+
         var data = FileLoader.loadData("units.json");
 
         var length = data.Common.get("Length");
 
         double result = ConversionEngine.convert(
                 100,
-                "cm",
+                "m",
                 "km",
                 length);
 
