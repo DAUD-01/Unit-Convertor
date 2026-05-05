@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "convertor.src.main.java.com.hub.Main",
+            "projectName": "Unit Convertor_373ed38b"
+        },
+        {
+            "type": "java",
             "name": "Run JavaFX App",
             "request": "launch",
             "mainClass": "com.hub.Main",
