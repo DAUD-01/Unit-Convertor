@@ -1,6 +1,7 @@
 package com.hub;
 
 import com.hub.core.ConversionEngine;
+import com.hub.services.InputParserService;
 import com.hub.utils.FileLoader;
 
 import javafx.application.Application;
@@ -57,6 +58,12 @@ public class Main extends Application {
                 length);
 
         System.out.println("Result: " + result);
+
+        var input1 = InputParserService.parse("100m");
+        System.out.println(input1.value + " " + input1.unit);
+
+        var input2 = InputParserService.parse("250 kg");
+        System.out.println(input2.value + " " + input2.unit);
 
         launch();
 
