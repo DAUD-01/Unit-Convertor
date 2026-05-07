@@ -16,7 +16,7 @@ public class InputParserService {
                 throw new IllegalArgumentException("Invalid Input format");
             }
 
-            double value = Double.parseDouble(parts[0]);
+            double value = Double.parseDouble(parts[0]); 
             String unit = parts[1];
 
             return new ParsedInput(value, unit);
