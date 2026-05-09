@@ -11,12 +11,13 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/dashboard.fxml")
-        );
+                getClass().getResource("/fxml/dashboard.fxml"));
 
         Scene scene = new Scene(loader.load(), 900, 600);
 
-        stage.setTitle("ConverterHub Pro");
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+        stage.setTitle("Convertor+");
         stage.setScene(scene);
         stage.show();
     }
