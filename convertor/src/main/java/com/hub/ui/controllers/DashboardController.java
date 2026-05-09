@@ -2,6 +2,7 @@ package com.hub.ui.controllers;
 
 import com.hub.models.RootData;
 import com.hub.utils.FileLoader;
+import com.hub.ui.utils.FXAnimation;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +65,8 @@ public class DashboardController {
                 case "Health" -> controller.setCategory(data.Health);
                 case "Tools" -> controller.setCategory(data.Tools);
             }
+
+            FXAnimation.fadeIn(view);
 
             Stage stage = (Stage) root.getScene().getWindow();
 

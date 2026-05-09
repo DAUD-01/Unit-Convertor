@@ -39,11 +39,6 @@ public class CategoryController {
     }
 
     private void openConvertor(String subCategory) {
-        System.out.println("Opening converter: " + subCategory);
 
-        Category selected = currentCategories.get(subCategory);
-
-        // later: pass to converter screen
-        // Navigation logic will go here
     }
 }
