@@ -3,19 +3,18 @@ package com.hub.core;
 public class FormulaEngine {
 
     // Health Category
-    // BMI = weight / height²
+
+    // BMI = weight / heightsquare
     public double bmi(double weight, double height) {
         return weight / (height * height);
     }
 
-    // Calories goal met
+    // Calories (simple MET formula placeholder)
     public double calories(double weight, double duration, double met) {
         return weight * duration * met;
     }
 
-    // =========================
-    // 🔹 FINANCE
-    // =========================
+    // FINANCE
 
     // Simple Interest = (P × R × T) / 100
     public double simpleInterest(double p, double r, double t) {
