@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 public class ConvertorController {
 
     @FXML
-    private TextField inpuField;
+    private TextField inputField;
 
     @FXML
     private ComboBox<String> fromBox;
@@ -22,7 +22,7 @@ public class ConvertorController {
     private ComboBox<String> toBox;
 
     @FXML
-    private Label resultlabel;
+    private Label resultLabel;
 
     private Category currentCategory;
 
@@ -47,7 +47,11 @@ public class ConvertorController {
     @FXML
     public void initialize() {
 
-        inpuField.textProperty().addListener((obs, oldVal, newVal) -> {
+        System.out.println(inputField);
+        System.out.println(fromBox);
+        System.out.println(toBox);
+
+        inputField.textProperty().addListener((obs, oldVal, newVal) -> {
             autoConvert();
         });
 
@@ -56,27 +60,34 @@ public class ConvertorController {
     }
 
     private void autoConvert() {
-        try {
-            if (currentCategory == null) return;
 
-            ParsedInput input = InputParserService.parse(inpuField.getText());
+        if (currentCategory == null)
+            return;
+
+        if (inputField.getText() == null || inputField.getText().isBlank()) {
+            resultLabel.setText("");
+            return;
+        }
+
+        try {
+            ParsedInput input = InputParserService.parse(inputField.getText());
 
             String from = input.unit;
             String to = toBox.getValue();
 
-            if (from == null || to == null) return;
+            if (from == null || to == null)
+                return;
 
             double result = ConversionEngine.convert(
                     input.value,
                     from,
                     to,
-                    currentCategory
-            );
+                    currentCategory);
 
-            resultlabel.setText(String.valueOf(result));
+            resultLabel.setText(String.valueOf(result));
 
         } catch (Exception e) {
-            resultlabel.setText("");
+            resultLabel.setText("");
         }
     }
 }
