@@ -6,7 +6,7 @@ public class InputParserService {
             throw new IllegalArgumentException("Input is empty");
         }
 
-        input = input.trim(); 
+        input = input.trim().toLowerCase(); 
 
         // if user enter 100 m
         if (input.contains(" ")) {
@@ -35,6 +35,13 @@ public class InputParserService {
         String unit = input.substring(i);
 
         return new ParsedInput(value, unit);
+    }
 
+    private static double parseDouble(String str) {
+        try {
+            return Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid Number: " + str);
+        }
     }
 }
