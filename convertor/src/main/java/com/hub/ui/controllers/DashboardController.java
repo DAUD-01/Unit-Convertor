@@ -74,7 +74,7 @@ public class DashboardController {
 
             Stage stage = (Stage) root.getScene().getWindow();
 
-            stage.setScene(new Scene(view, 900, 600));
+            stage.setScene(new Scene(view, 1920, 1080));
 
         } catch (Exception e) {
             e.printStackTrace();

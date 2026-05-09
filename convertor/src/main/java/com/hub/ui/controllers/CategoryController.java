@@ -62,7 +62,7 @@ public class CategoryController {
             FXAnimation.fadeIn(view);
             FXAnimation.fadeIn(view);
 
-            stage.setScene(new Scene(view, 900, 600));
+            stage.setScene(new Scene(view, 1920, 1080));
         } catch (Exception e) {
             e.printStackTrace();
         }
