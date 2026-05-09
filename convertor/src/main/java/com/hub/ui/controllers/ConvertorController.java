@@ -21,10 +21,36 @@ public class ConvertorController {
     @FXML
     private Label resultlabel;
 
-    private category currentCategory;
+    private Category currentCategory;
 
     public void setCategory(Category category) {
-        fromBox.getItems().add(unit);
-        toBox.getItems().add(unit);
+
+        currentCategory = category;
+
+        for (String unit : category.units.keySet()) {
+            fromBox.getItems().add(unit);
+            toBox.getItems().add(unit);
+        }
+
+        fromBox.setValue(fromBox.getItems().get(0));
+        toBox.setValue(toBox.getItems().get(1));
     }
+
+    @FXML
+    public void convert() {
+        try {
+            double value = Double.parseDouble(inpuField.getText());
+
+            String from = fromBox.getValue();
+            String to = toBox.getValue();
+
+            double result = ConversionEngine.convert(value, from, to, currentCategory);
+
+            resultlabel.setText("Result: " + result);
+
+        } catch (Exception e) {
+            resultlabel.setText("Invalid Inpuit");
+        }
+    }
+
 }

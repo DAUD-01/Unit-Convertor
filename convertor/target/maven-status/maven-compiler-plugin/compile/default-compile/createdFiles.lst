@@ -1,0 +1,11 @@
+com\hub\Main.class
+com\hub\models\Category.class
+com\hub\services\ParsedInput.class
+com\hub\models\ConversionResult.class
+com\hub\core\ConversionEngine.class
+com\hub\ui\controllers\DashboardController.class
+com\hub\ui\controllers\CategoryController.class
+com\hub\models\Unit.class
+com\hub\utils\FileLoader.class
+com\hub\models\RootData.class
+com\hub\services\InputParserService.class
