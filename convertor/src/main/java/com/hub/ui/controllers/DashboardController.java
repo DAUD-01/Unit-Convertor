@@ -39,6 +39,7 @@ public class DashboardController {
             Button btn = new Button(category);
             btn.setPrefWidth(260);
             btn.setPrefHeight(55);
+            btn.getStyleClass().add("card");
 
             btn.setOnAction(e -> openCategory(category));
 

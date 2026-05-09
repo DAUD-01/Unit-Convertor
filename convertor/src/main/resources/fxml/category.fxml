@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
 
 <VBox fx:id="root"
-      spacing="10"
-      styleClass="card"
+      spacing="15"
+      alignment="CENTER"
+      styleClass="root"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.CategoryController">
+
+    <Label text="Categories"
+           styleClass="title"/>
 
 </VBox>

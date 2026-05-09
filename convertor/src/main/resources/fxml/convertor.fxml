@@ -5,22 +5,26 @@
 
 <VBox spacing="18"
       alignment="CENTER"
-      styleClass="card"
+      styleClass="root"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.ConvertorController">
 
     <Label text="Unit Converter"
-           style="-fx-font-size: 28px;
-                  -fx-font-weight: bold;" />
+           styleClass="title"/>
 
     <TextField fx:id="inputField"
-               promptText="Enter value" />
+               promptText="Enter value (e.g. 100cm)"
+               styleClass="input"/>
 
-    <ComboBox fx:id="fromBox"/>
+    <ComboBox fx:id="fromBox"
+              styleClass="dropdown"/>
 
-    <ComboBox fx:id="toBox"/>
+    <ComboBox fx:id="toBox"
+              styleClass="dropdown"/>
 
     <Label fx:id="resultLabel"
-           text="Result"/>
+           text="Result"
+           styleClass="result"/>
+
 </VBox>

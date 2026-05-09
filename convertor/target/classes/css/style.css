@@ -1,7 +1,7 @@
 /* ROOT */
 
 .root {
-    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);
+    /* -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b); */
     -fx-font-family: "Segoe UI";
 }
 
@@ -118,4 +118,29 @@
             0.2,
             0,
             8);
+}
+
+.root {
+    -fx-background-color: #0f172a;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.input {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
+
+.dropdown {
+    -fx-background-color: #1e293b;
+}
+
+.result {
+    -fx-text-fill: #38bdf8;
+    -fx-font-size: 18px;
 }

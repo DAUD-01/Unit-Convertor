@@ -38,6 +38,7 @@ public class CategoryController {
             Button btn = new Button(sub);
             btn.setPrefWidth(260);
             btn.setPrefHeight(55);
+            btn.getStyleClass().add("card");
 
             btn.setOnAction(e -> openConvertor(sub));
 
