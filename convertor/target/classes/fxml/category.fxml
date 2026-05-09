@@ -4,6 +4,7 @@
 
 <VBox fx:id="root"
       spacing="10"
+      styleClass="card"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.CategoryController">

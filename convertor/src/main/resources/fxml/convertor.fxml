@@ -3,23 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10"
+<VBox spacing="18"
       alignment="CENTER"
+      styleClass="card"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.ConvertorController">
 
+    <Label text="Unit Converter"
+           style="-fx-font-size: 28px;
+                  -fx-font-weight: bold;" />
+
     <TextField fx:id="inputField"
-               promptText="Enter value e.g. 100 cm"/>
+               promptText="Enter value" />
 
     <ComboBox fx:id="fromBox"/>
 
     <ComboBox fx:id="toBox"/>
 
-    <!-- <Button text="Convert"
-            onAction="#convert"/> -->
-
     <Label fx:id="resultLabel"
-           text="Result will appear here"/>
-
+           text="Result"/>
 </VBox>

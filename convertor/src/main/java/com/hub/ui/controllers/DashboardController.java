@@ -37,6 +37,8 @@ public class DashboardController {
         for (String category : categories) {
 
             Button btn = new Button(category);
+            btn.setPrefWidth(260);
+            btn.setPrefHeight(55);
 
             btn.setOnAction(e -> openCategory(category));
 
@@ -66,6 +68,7 @@ public class DashboardController {
                 case "Tools" -> controller.setCategory(data.Tools);
             }
 
+            FXAnimation.fadeIn(view);
             FXAnimation.fadeIn(view);
 
             Stage stage = (Stage) root.getScene().getWindow();

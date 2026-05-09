@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+import com.hub.ui.utils.FXAnimation;
+
 import java.util.Map;
 
 public class CategoryController {
@@ -34,6 +36,8 @@ public class CategoryController {
         for (String sub : currentCategories.keySet()) {
 
             Button btn = new Button(sub);
+            btn.setPrefWidth(260);
+            btn.setPrefHeight(55);
 
             btn.setOnAction(e -> openConvertor(sub));
 
@@ -53,6 +57,10 @@ public class CategoryController {
             controller.setCategory(selected);
 
             Stage stage = (Stage) root.getScene().getWindow();
+
+            FXAnimation.fadeIn(view);
+            FXAnimation.fadeIn(view);
+
             stage.setScene(new Scene(view, 900, 600));
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,34 +1,121 @@
+/* ROOT */
+
 .root {
-    -fx-background-color: #0f172a;
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);
     -fx-font-family: "Segoe UI";
 }
+
+/* TITLE */
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+/* BUTTONS */
 
 .button {
     -fx-background-color: rgba(255, 255, 255, 0.08);
     -fx-text-fill: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-border-color: rgba(255, 255, 255, 0.15);
+
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+
+    -fx-padding: 14 24;
+
+    -fx-font-size: 15px;
+
+    -fx-border-color: rgba(255, 255, 255, 0.1);
     -fx-border-width: 1;
-    -fx-padding: 10;
-    -fx-transition: all 0.2s ease-in-out;
+
+    -fx-cursor: hand;
+
+    -fx-effect:
+        dropshadow(gaussian,
+            rgba(0, 0, 0, 0.35),
+            18,
+            0.2,
+            0,
+            6);
 }
 
 .button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
 }
 
-.label {
-    -fx-text-fill: #e2e8f0;
-    -fx-font-size: 16px;
+/* TEXT FIELD */
+
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+
+    -fx-text-fill: white;
+
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+
+    -fx-background-radius: 14;
+
+    -fx-padding: 12;
+
+    -fx-font-size: 15px;
+
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 14;
 }
 
-.card {
-    -fx-background-color: rgba(255, 255, 255, 0.06);
-    -fx-padding: 15;
-    -fx-background-radius: 15;
-    -fx-border-radius: 15;
+/* COMBOBOX */
+
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+
+    -fx-background-radius: 14;
+
+    -fx-border-radius: 14;
+
     -fx-border-color: rgba(255, 255, 255, 0.1);
+
+    -fx-padding: 6;
+
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #1e293b;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1e293b;
+}
+
+/* RESULT LABEL */
+
+#resultLabel {
+    -fx-font-size: 22px;
+
+    -fx-font-weight: bold;
+
+    -fx-text-fill: #38bdf8;
+}
+
+/* VBOX CARD STYLE */
+
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+
+    -fx-background-radius: 24;
+
+    -fx-padding: 24;
+
+    -fx-spacing: 16;
+
+    -fx-effect:
+        dropshadow(gaussian,
+            rgba(0, 0, 0, 0.4),
+            20,
+            0.2,
+            0,
+            8);
 }

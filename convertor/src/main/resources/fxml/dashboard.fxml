@@ -3,6 +3,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="root"
+      spacing="20"
+      alignment="20"
+      styleClass="card"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.DashboardController">
