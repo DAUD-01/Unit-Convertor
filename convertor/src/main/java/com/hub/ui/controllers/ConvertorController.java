@@ -64,22 +64,20 @@ public class ConvertorController {
         if (currentCategory == null)
             return;
 
-        if (inputField.getText() == null || inputField.getText().isBlank()) {
-            resultLabel.setText("");
-            return;
-        }
-
         try {
-            ParsedInput input = InputParserService.parse(inputField.getText());
 
-            String from = input.unit;
+            if (inputField.getText().isBlank()) {
+                resultLabel.setText("");
+                return;
+            }
+
+            double value = Double.parseDouble(inputField.getText());
+
+            String from = fromBox.getValue();
             String to = toBox.getValue();
 
-            if (from == null || to == null)
-                return;
-
             double result = ConversionEngine.convert(
-                    input.value,
+                    value,
                     from,
                     to,
                     currentCategory);
@@ -87,7 +85,7 @@ public class ConvertorController {
             resultLabel.setText(String.valueOf(result));
 
         } catch (Exception e) {
-            resultLabel.setText("");
+            resultLabel.setText("Invalid Input");
         }
     }
 }
