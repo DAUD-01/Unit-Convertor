@@ -1,5 +1,8 @@
 package com.hub.ui.controllers;
 
+import com.hub.models.RootData;
+import com.hub.utils.FileLoader;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -50,7 +53,17 @@ public class DashboardController {
 
             CategoryController controller = loader.getController();
 
-            controller.setCategory(category);
+            RootData data = FileLoader.loadData("units.json");
+
+            switch (category) {
+                case "Common" -> controller.setCategory(data.Common);
+                case "Finance" -> controller.setCategory(data.Finance);
+                case "Science" -> controller.setCategory(data.Science);
+                case "Computing" -> controller.setCategory(data.Computing);
+                case "Physics" -> controller.setCategory(data.Physics);
+                case "Health" -> controller.setCategory(data.Health);
+                case "Tools" -> controller.setCategory(data.Tools);
+            }
 
             Stage stage = (Stage) root.getScene().getWindow();
 
