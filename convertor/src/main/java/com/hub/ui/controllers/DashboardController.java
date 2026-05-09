@@ -44,8 +44,7 @@ public class DashboardController {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/fxml/category.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));
 
             VBox view = loader.load();
 
