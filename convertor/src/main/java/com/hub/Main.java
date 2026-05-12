@@ -19,6 +19,7 @@ public class Main extends Application {
 
         stage.setTitle("Convertor+");
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 
