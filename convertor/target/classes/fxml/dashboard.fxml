@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
 
 <VBox fx:id="root"
-      spacing="20"
-      alignment="CENTER"
+      spacing="30"
+      alignment="TOP_CENTER"
       styleClass="root"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.DashboardController">
+    
+    <padding>
+        <Insets top="60" right="40" bottom="40" left="40"/>
+    </padding>
 
-    <Label text="Converter Hub"
-           styleClass="title"/>
+    <Label text="Converter Hub" styleClass="title"/>
+
+    <ScrollPane fitToWidth="true" styleClass="transparent-scroll">
+        <FlowPane fx:id="buttonContainer" 
+                  hgap="25" 
+                  vgap="25" 
+                  alignment="CENTER" 
+                  prefWrapLength="1200">
+            </FlowPane>
+    </ScrollPane>
 
 </VBox>
