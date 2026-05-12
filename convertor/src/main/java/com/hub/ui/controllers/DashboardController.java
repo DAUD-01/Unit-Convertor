@@ -8,13 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardController {
 
     @FXML
-    private VBox root;
+    private FlowPane buttonContainer;
 
     @FXML
     public void initialize() {
@@ -43,7 +44,7 @@ public class DashboardController {
 
             btn.setOnAction(e -> openCategory(category));
 
-            root.getChildren().add(btn);
+            buttonContainer.getChildren().add(btn);
         }
     }
 
@@ -72,7 +73,7 @@ public class DashboardController {
             FXAnimation.fadeIn(view);
             FXAnimation.fadeIn(view);
 
-            Stage stage = (Stage) root.getScene().getWindow();
+            Stage stage = (Stage) buttonContainer.getScene().getWindow();
 
             stage.setScene(new Scene(view, 1920, 1080));
 
