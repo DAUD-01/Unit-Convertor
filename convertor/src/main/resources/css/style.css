@@ -68,3 +68,43 @@
 .category-card:hover .category-icon {
     -fx-effect: dropshadow(three-pass-box, white, 10, 0.2, 0, 0);
 }
+
+/* CONVERTER INPUTS */
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: white;
+    -fx-highlight-fill: #3b82f6;
+    -fx-prompt-text-fill: #64748b;
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 12;
+    -fx-font-size: 24px;
+    -fx-padding: 15;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* DROP DOWN BOXES */
+.combo-box {
+    -fx-background-color: #1e2b3d;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-padding: 5;
+}
+
+.combo-box .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+/* BIG RESULT TEXT */
+#resultLabel {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 0);
+    -fx-padding: 20 0;
+}

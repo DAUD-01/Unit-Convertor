@@ -60,7 +60,7 @@ public class CategoryController {
 
         // 4. Add a Back Button to return to the Main Dashboard
         Button backBtn = new Button("Back to Hub");
-        backBtn.getStyleClass().add("button"); // Use a simpler style or a specific 'back' style
+        backBtn.getStyleClass().add("back-button"); // Use a simpler style or a specific 'back' style
         backBtn.setTranslateY(50); // Give it some space from the grid
         backBtn.setOnAction(e -> goBack());
 
