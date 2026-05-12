@@ -91,7 +91,7 @@ public class ConvertorController {
     private void handleBack() {
         try {
             // Goes back to the Dashboard (or you can link to Category page)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));
             VBox view = loader.load();
 
             Stage stage = (Stage) root.getScene().getWindow();
