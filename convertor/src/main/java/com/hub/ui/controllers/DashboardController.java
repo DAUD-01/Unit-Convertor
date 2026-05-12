@@ -25,7 +25,7 @@ public class DashboardController {
     }
 
     private void renderDashboard() {
-        // 1. Setup the FlowPane (The Grid)
+
         FlowPane flow = new FlowPane();
         flow.setHgap(35); // Horizontal spacing between cards
         flow.setVgap(35); // Vertical spacing between rows
@@ -51,18 +51,14 @@ public class DashboardController {
     private Button createCard(String title) {
         Button btn = new Button(title);
 
-        // Apply the CSS class for the glow and dark background
         btn.getStyleClass().add("category-card");
 
-        // 3. Match the Geometry (Square Cards)
         btn.setPrefSize(220, 220);
         btn.setMinSize(220, 220);
 
-        // Prepares the card for icons (Top) and Text (Bottom)
         btn.setContentDisplay(ContentDisplay.TOP);
         btn.setGraphicTextGap(20);
 
-        // 4. Navigation Logic
         btn.setOnAction(e -> openCategory(title));
 
         return btn;
@@ -76,7 +72,6 @@ public class DashboardController {
             CategoryController controller = loader.getController();
             RootData data = FileLoader.loadData("units.json");
 
-            // Map data based on category name
             switch (category) {
                 case "Common" -> controller.setCategory(data.Common);
                 case "Finance" -> controller.setCategory(data.Finance);
