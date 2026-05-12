@@ -1,146 +1,46 @@
-/* ROOT */
-
+/* Main Background */
 .root {
-    /* -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b); */
-    -fx-font-family: "Segoe UI";
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);
+    -fx-font-family: "Segoe UI Semibold", "System";
 }
 
-/* TITLE */
-
-.label {
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-}
-
-/* BUTTONS */
-
-.button {
-    -fx-background-color: rgba(255, 255, 255, 0.08);
-    -fx-text-fill: white;
-
-    -fx-background-radius: 16;
-    -fx-border-radius: 16;
-
-    -fx-padding: 14 24;
-
-    -fx-font-size: 15px;
-
-    -fx-border-color: rgba(255, 255, 255, 0.1);
-    -fx-border-width: 1;
-
-    -fx-cursor: hand;
-
-    -fx-effect:
-        dropshadow(gaussian,
-            rgba(0, 0, 0, 0.35),
-            18,
-            0.2,
-            0,
-            6);
-}
-
-.button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-
-    -fx-scale-x: 1.03;
-    -fx-scale-y: 1.03;
-}
-
-/* TEXT FIELD */
-
-.text-field {
-    -fx-background-color: rgba(255, 255, 255, 0.08);
-
-    -fx-text-fill: white;
-
-    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
-
-    -fx-background-radius: 14;
-
-    -fx-padding: 12;
-
-    -fx-font-size: 15px;
-
-    -fx-border-color: rgba(255, 255, 255, 0.1);
-    -fx-border-radius: 14;
-}
-
-/* COMBOBOX */
-
-.combo-box {
-    -fx-background-color: rgba(255, 255, 255, 0.08);
-
-    -fx-background-radius: 14;
-
-    -fx-border-radius: 14;
-
-    -fx-border-color: rgba(255, 255, 255, 0.1);
-
-    -fx-padding: 6;
-
-    -fx-text-fill: white;
-}
-
-.combo-box .list-cell {
-    -fx-text-fill: white;
-    -fx-background-color: #1e293b;
-}
-
-.combo-box-popup .list-view {
-    -fx-background-color: #1e293b;
-}
-
-/* RESULT LABEL */
-
-#resultLabel {
-    -fx-font-size: 22px;
-
-    -fx-font-weight: bold;
-
-    -fx-text-fill: #38bdf8;
-}
-
-/* VBOX CARD STYLE */
-
-.card {
-    -fx-background-color: rgba(255, 255, 255, 0.08);
-
-    -fx-background-radius: 24;
-
-    -fx-padding: 24;
-
-    -fx-spacing: 16;
-
-    -fx-effect:
-        dropshadow(gaussian,
-            rgba(0, 0, 0, 0.4),
-            20,
-            0.2,
-            0,
-            8);
-}
-
-.root {
-    -fx-background-color: #0f172a;
-}
-
+/* Header */
 .title {
     -fx-text-fill: white;
-    -fx-font-size: 26px;
+    -fx-font-size: 42px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 4);
 }
 
-.input {
-    -fx-background-color: #1e293b;
+/* The Category Cards */
+.category-card {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1.5;
     -fx-text-fill: white;
-    -fx-background-radius: 10;
-}
-
-.dropdown {
-    -fx-background-color: #1e293b;
-}
-
-.result {
-    -fx-text-fill: #38bdf8;
     -fx-font-size: 18px;
+    -fx-cursor: hand;
+
+    /* Animation transition */
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.category-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-border-color: #38bdf8;
+    /* Nice neon blue border on hover */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.4), 15, 0, 0, 0);
+}
+
+/* Hide ScrollPane background */
+.transparent-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.transparent-scroll .viewport {
+    -fx-background-color: transparent;
 }
