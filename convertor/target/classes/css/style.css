@@ -1,10 +1,10 @@
-/* DASHBOARD BACKGROUND */
+/* --- GLOBAL & BACKGROUND --- */
 .root {
     -fx-background-color: #101d2d;
-    /* Deep navy from your image */
+    /* Deep navy */
 }
 
-/* CATEGORY CARDS (Consistent with Dashboard) */
+/* --- DASHBOARD & CATEGORY CARDS --- */
 .category-card {
     -fx-background-color: #1e2b3d;
     -fx-background-radius: 25;
@@ -21,13 +21,29 @@
     -fx-border-color: #3b82f6;
     -fx-border-radius: 25;
     -fx-border-width: 2;
-    /* Neon glow effect */
     -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.6), 20, 0.4, 0, 0);
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
 
-/* BACK BUTTON STYLING */
+.category-icon {
+    -fx-icon-color: #3b82f6;
+    -fx-icon-size: 60;
+}
+
+.category-card:hover .category-icon {
+    -fx-icon-color: white;
+    -fx-effect: dropshadow(three-pass-box, white, 10, 0.2, 0, 0);
+}
+
+/* --- NAVIGATION & TITLES --- */
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 40 0;
+}
+
 .back-button {
     -fx-background-color: transparent;
     -fx-border-color: rgba(160, 174, 192, 0.5);
@@ -38,45 +54,33 @@
     -fx-font-size: 14px;
     -fx-padding: 10 25;
     -fx-cursor: hand;
-    -fx-transition: all 0.2s;
 }
 
 .back-button:hover {
     -fx-border-color: white;
     -fx-text-fill: white;
     -fx-background-color: rgba(255, 255, 255, 0.05);
-    /* Subtle white glow */
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 10, 0, 0, 0);
 }
 
-/* TITLE STYLING */
-.title {
-    -fx-text-fill: white;
-    -fx-font-size: 40px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 40 0;
+/* --- CONVERTER SPECIFIC LAYOUT --- */
+.converter-card {
+    -fx-background-color: rgba(30, 41, 59, 0.5);
+    /* Glassmorphism effect */
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 10);
 }
 
-.category-icon {
-    -fx-icon-color: #3b82f6;
-    /* Blue color from your sample */
-    -fx-icon-size: 60;
-    /* Make it large and prominent */
-}
-
-/* Make the icon glow/white when the button is hovered */
-.category-card:hover .category-icon {
-    -fx-effect: dropshadow(three-pass-box, white, 10, 0.2, 0, 0);
-}
-
-/* CONVERTER INPUTS */
+/* --- INPUTS & TEXT FIELDS --- */
 .text-field {
-    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-color: #0f172a;
     -fx-text-fill: white;
     -fx-highlight-fill: #3b82f6;
     -fx-prompt-text-fill: #64748b;
     -fx-background-radius: 12;
-    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: #334155;
     -fx-border-radius: 12;
     -fx-font-size: 24px;
     -fx-padding: 15;
@@ -87,11 +91,12 @@
     -fx-background-color: rgba(59, 130, 246, 0.05);
 }
 
-/* DROP DOWN BOXES */
+/* --- COMBOBOX / DROPDOWN REPAIR --- */
 .combo-box {
     -fx-background-color: #1e2b3d;
     -fx-background-radius: 10;
-    -fx-text-fill: white;
+    -fx-border-color: #334155;
+    -fx-border-radius: 10;
     -fx-padding: 5;
 }
 
@@ -100,11 +105,41 @@
     -fx-font-size: 16px;
 }
 
-/* BIG RESULT TEXT */
+/* Fixes the arrow color */
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #a0aec0;
+}
+
+/* CRITICAL: Fixes the popup contrast (the list you see when you click) */
+.combo-box-popup .list-view {
+    -fx-background-color: #1e2b3d;
+    -fx-background-radius: 5;
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #1e2b3d;
+    -fx-text-fill: #cbd5e1;
+    -fx-padding: 10;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+/* --- RESULT DISPLAY --- */
 #resultLabel {
-    -fx-font-size: 48px;
+    -fx-font-size: 56px;
     -fx-font-weight: bold;
     -fx-text-fill: #3b82f6;
-    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.5), 20, 0.3, 0, 0);
     -fx-padding: 20 0;
+}
+
+/* Helper for units/labels inside converter */
+.unit-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 14px;
 }

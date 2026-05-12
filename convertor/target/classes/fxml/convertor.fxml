@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox spacing="18"
-      alignment="CENTER"
-      styleClass="root"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" 
+      styleClass="root" 
+      spacing="30"
+      xmlns="http://javafx.com/javafx" 
+      xmlns:fx="http://javafx.com/fxml" 
       fx:controller="com.hub.ui.controllers.ConvertorController">
 
-    <Label text="Unit Converter"
-           styleClass="title"/>
+    <padding>
+        <Insets top="50" bottom="50" left="50" right="50"/>
+    </padding>
 
-    <TextField fx:id="inputField"
-               promptText="Enter value (e.g. 100cm)"
-               styleClass="input"/>
+    <HBox alignment="CENTER_LEFT">
+        <Button text="← Back" onAction="#handleBack" styleClass="back-button"/>
+    </HBox>
 
-    <ComboBox fx:id="fromBox"
-              styleClass="dropdown"/>
+    <Label text="Unit Converter" styleClass="title"/>
 
-    <ComboBox fx:id="toBox"
-              styleClass="dropdown"/>
+    <VBox styleClass="converter-card" maxWidth="600" spacing="25" alignment="CENTER">
+        <padding>
+            <Insets top="40" bottom="40" left="40" right="40"/>
+        </padding>
 
-    <Label fx:id="resultLabel"
-           text="Result"
-           styleClass="result"/>
+        <VBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Enter Value" style="-fx-text-fill: #94a3b8; -fx-font-size: 14;"/>
+            <TextField fx:id="inputField" promptText="0.00" styleClass="input-field"/>
+        </VBox>
 
+        <HBox spacing="20" alignment="CENTER">
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="From" style="-fx-text-fill: #94a3b8;"/>
+                <ComboBox fx:id="fromBox" maxWidth="Infinity" styleClass="dropdown"/>
+            </VBox>
+            
+            <Label text="→" style="-fx-text-fill: #38bdf8; -fx-font-size: 24; -fx-padding: 25 0 0 0;"/>
+
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="To" style="-fx-text-fill: #94a3b8;"/>
+                <ComboBox fx:id="toBox" maxWidth="Infinity" styleClass="dropdown"/>
+            </VBox>
+        </HBox>
+
+        <Separator opacity="0.1"/>
+
+        <VBox alignment="CENTER" spacing="5">
+            <Label text="Result" style="-fx-text-fill: #94a3b8;"/>
+            <Label fx:id="resultLabel" text="0.00" styleClass="result-text"/>
+        </VBox>
+    </VBox>
 </VBox>
