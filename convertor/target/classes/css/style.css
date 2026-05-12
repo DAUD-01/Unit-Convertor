@@ -43,3 +43,15 @@
     -fx-font-weight: bold;
     -fx-padding: 0 0 40 0;
 }
+
+.category-icon {
+    -fx-icon-color: #3b82f6;
+    /* Blue color from your sample */
+    -fx-icon-size: 60;
+    /* Make it large and prominent */
+}
+
+/* Make the icon glow/white when the button is hovered */
+.category-card:hover .category-icon {
+    -fx-effect: dropshadow(three-pass-box, white, 10, 0.2, 0, 0);
+}

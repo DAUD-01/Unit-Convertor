@@ -9,10 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.ContentDisplay;
+
+// Ikonli Imports
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class DashboardController {
 
@@ -21,18 +24,19 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        // Cleaning the root to ensure the white bar/ghost nodes are gone
+        root.getChildren().removeIf(node -> !(node instanceof javafx.scene.control.Label));
         renderDashboard();
     }
 
     private void renderDashboard() {
-
         FlowPane flow = new FlowPane();
-        flow.setHgap(35); // Horizontal spacing between cards
-        flow.setVgap(35); // Vertical spacing between rows
+        flow.setHgap(40);
+        flow.setVgap(40);
         flow.setAlignment(Pos.CENTER);
 
-        // This ensures a 4x2 or 3x3 layout depending on window size
-        flow.setPrefWrapLength(1000);
+        // This width allows for a clean 3 or 4 column grid on a 1080p screen
+        flow.setPrefWrapLength(1100);
 
         String[] categories = {
                 "Common", "Finance", "Science",
@@ -40,25 +44,41 @@ public class DashboardController {
         };
 
         for (String category : categories) {
-            Button card = createCard(category);
+            Button card = createCategoryCard(category);
             flow.getChildren().add(card);
         }
 
-        // 2. Add the grid to your root layout
         root.getChildren().add(flow);
     }
 
-    private Button createCard(String title) {
+    private Button createCategoryCard(String title) {
         Button btn = new Button(title);
-
         btn.getStyleClass().add("category-card");
 
-        btn.setPrefSize(220, 220);
-        btn.setMinSize(220, 220);
+        // Square dimensions matching your sample image
+        btn.setPrefSize(240, 240);
+        btn.setMinSize(240, 240);
 
+        // Positions Icon on Top, Text at Bottom
         btn.setContentDisplay(ContentDisplay.TOP);
         btn.setGraphicTextGap(20);
 
+        // Icon Logic
+        FontIcon icon = new FontIcon();
+        icon.getStyleClass().add("category-icon");
+
+        // Mapping icons based on FontAwesome 5 literals
+        switch (title) {
+            case "Common" -> icon.setIconLiteral("fas-layer-group");
+            case "Finance" -> icon.setIconLiteral("fas-wallet");
+            case "Science" -> icon.setIconLiteral("fas-microscope");
+            case "Computing" -> icon.setIconLiteral("fas-desktop");
+            case "Physics" -> icon.setIconLiteral("fas-atom");
+            case "Health" -> icon.setIconLiteral("fas-heartbeat");
+            case "Tools" -> icon.setIconLiteral("fas-tools");
+        }
+
+        btn.setGraphic(icon);
         btn.setOnAction(e -> openCategory(title));
 
         return btn;
@@ -85,9 +105,16 @@ public class DashboardController {
             FXAnimation.fadeIn(view);
 
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(view, 1920, 1080));
+            Scene scene = new Scene(view, 1920, 1080);
+
+            // Re-apply stylesheets to the new scene
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.setFullScreen(true);
 
         } catch (Exception e) {
+            System.err.println("Failed to load category: " + category);
             e.printStackTrace();
         }
     }
