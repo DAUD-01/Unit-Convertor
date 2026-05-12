@@ -22,7 +22,7 @@
 
     <ScrollPane fitToWidth="true" styleClass="transparent-scroll">
         <FlowPane fx:id="buttonContainer" 
-                  hgap="25" 
+                  hgap="40" 
                   vgap="25" 
                   alignment="CENTER" 
                   prefWrapLength="1200">
