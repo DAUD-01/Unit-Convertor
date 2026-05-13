@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ConvertorController {
 
     @FXML
@@ -30,20 +32,21 @@ public class ConvertorController {
     private Label resultLabel;
 
     private Category currentCategory;
+    private Map<String, Category> parentGroup;
 
     @FXML
     public void initialize() {
-        // Real-time conversion as you type
         inputField.textProperty().addListener((obs, oldVal, newVal) -> autoConvert());
-
-        // Instant conversion when dropdowns change
         fromBox.setOnAction(e -> autoConvert());
         toBox.setOnAction(e -> autoConvert());
     }
 
+    public void setParentData(Map<String, Category> group) {
+        this.parentGroup = group;
+    }
+
     public void setCategory(Category category) {
         this.currentCategory = category;
-
         fromBox.getItems().clear();
         toBox.getItems().clear();
 
@@ -51,7 +54,6 @@ public class ConvertorController {
             fromBox.getItems().addAll(category.units.keySet());
             toBox.getItems().addAll(category.units.keySet());
 
-            // Set default selections safely
             if (!fromBox.getItems().isEmpty())
                 fromBox.setValue(fromBox.getItems().get(0));
             if (toBox.getItems().size() > 1)
@@ -62,50 +64,44 @@ public class ConvertorController {
     private void autoConvert() {
         if (currentCategory == null)
             return;
-
         try {
             String text = inputField.getText().trim();
             if (text.isEmpty()) {
                 resultLabel.setText("0.00");
                 return;
             }
-
             double value = Double.parseDouble(text);
-            String from = fromBox.getValue();
-            String to = toBox.getValue();
-
-            double result = ConversionEngine.convert(value, from, to, currentCategory);
-
-            // Formatting to 4 decimal places for a cleaner UI
+            double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
-
-        } catch (NumberFormatException e) {
-            resultLabel.setText("Invalid Number");
         } catch (Exception e) {
             resultLabel.setText("Error");
-            e.printStackTrace();
         }
     }
 
     @FXML
     private void goback() {
-        System.out.println("Hellow world"); // function is working, but still it is not navigating back 
         try {
-            // Goes back to the Dashboard (or you can link to Category page)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            // 1. Load the FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));
             VBox view = loader.load();
 
-            Stage stage = (Stage) root.getScene().getWindow();
-            FXAnimation.fadeIn(view);
+            // 2. Pass the data back to the controller
+            CategoryController controller = loader.getController();
+            controller.setCategory(parentGroup);
 
+            // 3. Find the stage safely
+            Stage stage = (Stage) inputField.getScene().getWindow();
+
+            // 4. Update the Scene
             Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
-            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
+            FXAnimation.fadeIn(view);
+
         } catch (Exception e) {
-            System.err.println("Error navigating back to Dashboard");
+            System.err.println("Navigation Failed: " + e.getMessage());
             e.printStackTrace();
         }
     }

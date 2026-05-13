@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-
 public class CategoryController {
 
     @FXML
@@ -84,34 +83,28 @@ public class CategoryController {
      * Navigates to the actual conversion screen.
      * Passes the specific category and the whole group for the return trip.
      */
-    private void openConvertor(String subCategory) {
-        System.out.println("Hello world");
+    private void openConvertor(String subCategoryName) {
         try {
-            Category selected = currentCategories.get(subCategory);
-
+            Category selected = currentCategories.get(subCategoryName);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/convertor.fxml"));
             VBox view = loader.load();
 
-            // Get the controller and pass BOTH pieces of data
             ConvertorController controller = loader.getController();
             controller.setCategory(selected);
+            // CRITICAL: Hand off the whole map so we can come back to it
+            controller.setParentData(currentCategories);
 
             Stage stage = (Stage) root.getScene().getWindow();
-
-            // Re-apply styles and full screen state to the new scene
             Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
-            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
-
+            FXAnimation.fadeIn(view);
         } catch (Exception e) {
-            System.err.println("Failed to open convertor for: " + subCategory);
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void goBack() {
@@ -121,7 +114,7 @@ public class CategoryController {
 
             Stage stage = (Stage) root.getScene().getWindow();
             FXAnimation.fadeIn(view);
-            
+
             Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
