@@ -120,7 +120,8 @@ public class CategoryController {
             VBox view = loader.load();
 
             Stage stage = (Stage) root.getScene().getWindow();
-
+            FXAnimation.fadeIn(view);
+            
             Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 

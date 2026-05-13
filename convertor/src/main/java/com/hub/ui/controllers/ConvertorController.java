@@ -89,9 +89,10 @@ public class ConvertorController {
 
     @FXML
     private void goback() {
+        System.out.println("Hellow world"); // function is working, but still it is not navigating back 
         try {
             // Goes back to the Dashboard (or you can link to Category page)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             VBox view = loader.load();
 
             Stage stage = (Stage) root.getScene().getWindow();
@@ -100,9 +101,11 @@ public class ConvertorController {
             Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
+            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
         } catch (Exception e) {
+            System.err.println("Error navigating back to Dashboard");
             e.printStackTrace();
         }
     }
