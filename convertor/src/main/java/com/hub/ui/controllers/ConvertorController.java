@@ -88,7 +88,7 @@ public class ConvertorController {
     }
 
     @FXML
-    private void goBack() {
+    private void goback() {
         try {
             // Goes back to the Dashboard (or you can link to Category page)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));

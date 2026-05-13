@@ -14,13 +14,15 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-// Ikonli Imports
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class DashboardController {
 
     @FXML
     private VBox root;
+
+    // Load data once at the start
+    private final RootData data = FileLoader.loadData("units.json");
 
     @FXML
     public void initialize() {
@@ -34,8 +36,6 @@ public class DashboardController {
         flow.setHgap(40);
         flow.setVgap(40);
         flow.setAlignment(Pos.CENTER);
-
-        // This width allows for a clean 3 or 4 column grid on a 1080p screen
         flow.setPrefWrapLength(1100);
 
         String[] categories = {
@@ -55,19 +55,14 @@ public class DashboardController {
         Button btn = new Button(title);
         btn.getStyleClass().add("category-card");
 
-        // Square dimensions matching your sample image
         btn.setPrefSize(240, 240);
         btn.setMinSize(240, 240);
-
-        // Positions Icon on Top, Text at Bottom
         btn.setContentDisplay(ContentDisplay.TOP);
         btn.setGraphicTextGap(20);
 
-        // Icon Logic
         FontIcon icon = new FontIcon();
         icon.getStyleClass().add("category-icon");
 
-        // Mapping icons based on FontAwesome 5 literals
         switch (title) {
             case "Common" -> icon.setIconLiteral("fas-layer-group");
             case "Finance" -> icon.setIconLiteral("fas-wallet");
@@ -84,15 +79,15 @@ public class DashboardController {
         return btn;
     }
 
-    public void openCategory(String category) {
+    public void openCategory(String categoryName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/category.fxml"));
             VBox view = loader.load();
 
             CategoryController controller = loader.getController();
-            RootData data = FileLoader.loadData("units.json");
 
-            switch (category) {
+            // Pass the pre-loaded data to the controller
+            switch (categoryName) {
                 case "Common" -> controller.setCategory(data.Common);
                 case "Finance" -> controller.setCategory(data.Finance);
                 case "Science" -> controller.setCategory(data.Science);
@@ -102,19 +97,16 @@ public class DashboardController {
                 case "Tools" -> controller.setCategory(data.Tools);
             }
 
-            FXAnimation.fadeIn(view);
-
             Stage stage = (Stage) root.getScene().getWindow();
             Scene scene = new Scene(view, 1920, 1080);
-
-            // Re-apply stylesheets to the new scene
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
+            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
 
         } catch (Exception e) {
-            System.err.println("Failed to load category: " + category);
+            System.err.println("Failed to load category: " + categoryName);
             e.printStackTrace();
         }
     }

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
+
 public class CategoryController {
 
     @FXML
@@ -21,93 +22,109 @@ public class CategoryController {
 
     private Map<String, Category> currentCategories;
 
+    /**
+     * Injects the data and triggers the UI render.
+     * 
+     * @param categories The map of sub-categories (e.g., Length, Mass, etc.)
+     */
     public void setCategory(Map<String, Category> categories) {
         this.currentCategories = categories;
         loadSubCategories();
     }
 
+    /**
+     * Dynamically builds the grid of sub-category buttons.
+     */
     private void loadSubCategories() {
-        // 1. Clean the view but keep the title if you have one in FXML
+        // 1. Clean the view of previous dynamic elements but keep the static FXML title
         root.getChildren().removeIf(node -> node instanceof FlowPane || node instanceof Button);
 
-        // 2. Setup the Grid Layout
+        if (currentCategories == null) {
+            System.err.println("Warning: currentCategories is null. Nothing to render.");
+            return;
+        }
+
+        // 2. Setup the Grid Layout (FlowPane)
         FlowPane flow = new FlowPane();
         flow.setHgap(35);
         flow.setVgap(35);
         flow.setAlignment(Pos.CENTER);
-        flow.setPrefWrapLength(1200);
+        flow.setPrefWrapLength(1200); // Prevents stretching on 1080p
 
-        if (currentCategories == null)
-            return;
-
-        // 3. Create a card for each Sub-Category (Length, Weight, etc.)
+        // 3. Create a card for each Sub-Category
         for (String sub : currentCategories.keySet()) {
             Button btn = new Button(sub);
 
-            // Using the same style class as the dashboard for consistency
+            // Apply consistent styling
             btn.getStyleClass().add("category-card");
-
-            // Matching the square geometry from your sample image
             btn.setPrefSize(240, 240);
             btn.setMinSize(240, 240);
-            btn.setContentDisplay(ContentDisplay.CENTER); // Centered text since no icons here
+            btn.setContentDisplay(ContentDisplay.CENTER);
 
+            // Pass the sub-category name to the click handler
             btn.setOnAction(e -> openConvertor(sub));
 
             flow.getChildren().add(btn);
         }
 
-        // 4. Add a Back Button to return to the Main Dashboard
-        Button backBtn = new Button("Back to Hub");
-        backBtn.getStyleClass().add("back-button"); // Use a simpler style or a specific 'back' style
-        backBtn.setTranslateY(50); // Give it some space from the grid
+        // 4. Create and Style the Back Button
+        Button backBtn = new Button("← Back to Dashboard");
+        backBtn.getStyleClass().add("back-button");
+
+        // Add vertical spacing so it's not glued to the grid
+        VBox.setMargin(backBtn, new javafx.geometry.Insets(40, 0, 0, 0));
+
         backBtn.setOnAction(e -> goBack());
 
+        // 5. Add components to the VBox root
         root.getChildren().addAll(flow, backBtn);
     }
 
+    /**
+     * Navigates to the actual conversion screen.
+     * Passes the specific category and the whole group for the return trip.
+     */
     private void openConvertor(String subCategory) {
+        System.out.println("Hello world");
         try {
             Category selected = currentCategories.get(subCategory);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/convertor.fxml"));
             VBox view = loader.load();
 
+            // Get the controller and pass BOTH pieces of data
             ConvertorController controller = loader.getController();
-            controller.setCategory(selected, currentCategories);
+            controller.setCategory(selected);
 
             Stage stage = (Stage) root.getScene().getWindow();
-            FXAnimation.fadeIn(view);
 
+            // Re-apply styles and full screen state to the new scene
             Scene scene = new Scene(view, 1920, 1080);
-            // Apply the CSS to the new scene
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
+            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
+
         } catch (Exception e) {
+            System.err.println("Failed to open convertor for: " + subCategory);
             e.printStackTrace();
         }
     }
 
+
     @FXML
     private void goBack() {
         try {
-            // 1. Load the Dashboard FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             VBox view = loader.load();
 
-            // 2. Get the current Stage
             Stage stage = (Stage) root.getScene().getWindow();
 
-            // 3. Apply the Animation
-            FXAnimation.fadeIn(view);
-
-            // 4. Create new Scene and Re-apply CSS
             Scene scene = new Scene(view, 1920, 1080);
-            String css = getClass().getResource("/css/style.css").toExternalForm();
-            scene.getStylesheets().add(css);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
-            // 5. Set Scene and Force Full Screen
+            FXAnimation.fadeIn(view);
             stage.setScene(scene);
             stage.setFullScreen(true);
 
