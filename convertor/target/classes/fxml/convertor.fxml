@@ -16,7 +16,7 @@
     </padding>
 
     <HBox alignment="CENTER_LEFT">
-        <Button text="← Back" onAction="#handleBack" styleClass="back-button"/>
+        <Button text="← Back" onAction="#goback()" styleClass="back-button"/>
     </HBox>
 
     <Label text="Unit Converter" styleClass="title"/>
