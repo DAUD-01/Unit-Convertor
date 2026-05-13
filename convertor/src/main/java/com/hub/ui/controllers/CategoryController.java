@@ -90,20 +90,30 @@ public class CategoryController {
         }
     }
 
+    @FXML
     private void goBack() {
         try {
+            // 1. Load the Dashboard FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             VBox view = loader.load();
 
+            // 2. Get the current Stage
             Stage stage = (Stage) root.getScene().getWindow();
+
+            // 3. Apply the Animation
             FXAnimation.fadeIn(view);
 
+            // 4. Create new Scene and Re-apply CSS
             Scene scene = new Scene(view, 1920, 1080);
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            String css = getClass().getResource("/css/style.css").toExternalForm();
+            scene.getStylesheets().add(css);
 
+            // 5. Set Scene and Force Full Screen
             stage.setScene(scene);
             stage.setFullScreen(true);
+
         } catch (Exception e) {
+            System.err.println("Error navigating back to Dashboard:");
             e.printStackTrace();
         }
     }
