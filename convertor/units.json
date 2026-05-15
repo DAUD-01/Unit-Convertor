@@ -98,7 +98,7 @@
     },
     "Science": {
         "Temperature": {
-            "type": "factor",
+            "type": "formula",
             "base": "C",
             "units": {
                 "C": 1,

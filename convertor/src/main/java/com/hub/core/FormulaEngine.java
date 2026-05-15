@@ -36,17 +36,23 @@ public class FormulaEngine {
         return amount * (taxPercent / 100);
     }
 
-    public String convertBase(String value, String fromBase, String toBase) {
-        int decimal = Integer.parseInt(value, getRadix(fromBase));
-        return Integer.toString(decimal, getRadix(toBase)).toUpperCase();
-    }
 
-    private int getRadix(String name) {
-        return switch (name.toLowerCase()) {
-            case "binary" -> 2;
-            case "octal" -> 8;
-            case "hexadecimal" -> 16;
-            default -> 10;
+    public double convertTemperature(double value, String from, String to) {
+        if (from.equals(to))
+            return value;
+
+        // Convert input to Celsius first
+        double celsius = switch (from.toLowerCase()) {
+            case "fahrenheit" -> (value - 32) * 5 / 9;
+            case "kelvin" -> value - 273.15;
+            default -> value; // already celsius
+        };
+
+        // Convert Celsius to target
+        return switch (to.toLowerCase()) {
+            case "fahrenheit" -> (celsius * 9 / 5) + 32;
+            case "kelvin" -> celsius + 273.15;
+            default -> celsius;
         };
     }
 }

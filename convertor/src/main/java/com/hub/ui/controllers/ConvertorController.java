@@ -7,6 +7,7 @@ import com.hub.models.Category;
 import com.hub.services.AlgorithmService;
 import com.hub.services.FormulaService;
 import com.hub.ui.utils.FXAnimation;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -79,35 +80,52 @@ public class ConvertorController {
             String type = currentCategory.type; // "factor", "formula", or "algorithm"
             String from = fromBox.getValue();
             String to = toBox.getValue();
-            double result = 0;
 
             if ("factor".equals(type)) {
                 double value = Double.parseDouble(text);
-                result = ConversionEngine.convert(value, from, to, currentCategory);
+                double result = ConversionEngine.convert(value, from, to, currentCategory);
                 resultLabel.setText(String.format("%.4f", result));
 
             } else if ("formula".equals(type)) {
-                // Use the FormulaService for Finance, Health, and Temperature
-                FormulaService formulaService = new FormulaService();
-
-                // Note: You may need to adjust your FormulaService to accept
-                // the specific inputs based on the category name
-                double value = Double.parseDouble(text);
-                // Example for Temperature (You'll need to add temp logic to FormulaEngine)
-                result = formulaService.calculate(currentCategory.getName(), value);
-                resultLabel.setText(String.format("%.2f", result));
+                FormulaService service = new FormulaService();
+                // Handle Temperature specifically
+                if (currentCategory.getName().equalsIgnoreCase("Temperature")) {
+                    double val = Double.parseDouble(text);
+                    double res = service.calculateTemperature(val, from, to);
+                    resultLabel.setText(String.format("%.2f", res));
+                }
+                // Handle Health/Finance (BMI, Tax, etc.)
+                else {
+                    // If the formula needs multiple inputs (e.g. BMI),
+                    // users should enter them like "70, 1.75"
+                    double[] inputs = parseMultipleInputs(text);
+                    double res = service.calculate(currentCategory.getName(), inputs);
+                    resultLabel.setText(String.format("%.2f", res));
+                }
 
             } else if ("algorithm".equals(type)) {
-                // Use AlgorithmService for Roman Numerals / Age
-                AlgorithmService algoService = new AlgorithmService();
-                Object algoResult = algoService.execute(currentCategory.getName(), text);
-                resultLabel.setText(algoResult.toString());
+                AlgorithmService service = new AlgorithmService();
+                if (currentCategory.getName().equalsIgnoreCase("Number Base")) {
+                    Object res = service.execute("numberbase", text, from, to);
+                    resultLabel.setText(res.toString());
+                } else {
+                    Object res = service.execute(currentCategory.getName(), text);
+                    resultLabel.setText(res.toString());
+                }
             }
-
         } catch (Exception e) {
             resultLabel.setText("Error");
-            e.printStackTrace();
         }
+    }
+
+    // Helper to handle formulas that need more than one number
+    private double[] parseMultipleInputs(String input) {
+        String[] parts = input.split(",");
+        double[] vals = new double[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            vals[i] = Double.parseDouble(parts[i].trim());
+        }
+        return vals;
     }
 
     @FXML
