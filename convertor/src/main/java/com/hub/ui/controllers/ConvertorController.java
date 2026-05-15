@@ -1,7 +1,11 @@
 package com.hub.ui.controllers;
 
 import com.hub.core.ConversionEngine;
+import com.hub.core.AlgorithmEngine;
+import com.hub.core.FormulaEngine;
 import com.hub.models.Category;
+import com.hub.services.AlgorithmService;
+import com.hub.services.FormulaService;
 import com.hub.ui.utils.FXAnimation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,17 +68,45 @@ public class ConvertorController {
     private void autoConvert() {
         if (currentCategory == null)
             return;
+
         try {
             String text = inputField.getText().trim();
             if (text.isEmpty()) {
                 resultLabel.setText("0.00");
                 return;
             }
-            double value = Double.parseDouble(text);
-            double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
-            resultLabel.setText(String.format("%.4f", result));
+
+            String type = currentCategory.type; // "factor", "formula", or "algorithm"
+            String from = fromBox.getValue();
+            String to = toBox.getValue();
+            double result = 0;
+
+            if ("factor".equals(type)) {
+                double value = Double.parseDouble(text);
+                result = ConversionEngine.convert(value, from, to, currentCategory);
+                resultLabel.setText(String.format("%.4f", result));
+
+            } else if ("formula".equals(type)) {
+                // Use the FormulaService for Finance, Health, and Temperature
+                FormulaService formulaService = new FormulaService();
+
+                // Note: You may need to adjust your FormulaService to accept
+                // the specific inputs based on the category name
+                double value = Double.parseDouble(text);
+                // Example for Temperature (You'll need to add temp logic to FormulaEngine)
+                result = formulaService.calculate(currentCategory.getName(), value);
+                resultLabel.setText(String.format("%.2f", result));
+
+            } else if ("algorithm".equals(type)) {
+                // Use AlgorithmService for Roman Numerals / Age
+                AlgorithmService algoService = new AlgorithmService();
+                Object algoResult = algoService.execute(currentCategory.getName(), text);
+                resultLabel.setText(algoResult.toString());
+            }
+
         } catch (Exception e) {
             resultLabel.setText("Error");
+            e.printStackTrace();
         }
     }
 

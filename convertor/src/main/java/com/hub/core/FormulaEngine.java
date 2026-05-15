@@ -35,4 +35,18 @@ public class FormulaEngine {
     public double tax(double amount, double taxPercent) {
         return amount * (taxPercent / 100);
     }
+
+    public String convertBase(String value, String fromBase, String toBase) {
+        int decimal = Integer.parseInt(value, getRadix(fromBase));
+        return Integer.toString(decimal, getRadix(toBase)).toUpperCase();
+    }
+
+    private int getRadix(String name) {
+        return switch (name.toLowerCase()) {
+            case "binary" -> 2;
+            case "octal" -> 8;
+            case "hexadecimal" -> 16;
+            default -> 10;
+        };
+    }
 }
