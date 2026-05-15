@@ -30,7 +30,7 @@ public class FormulaService {
             case "tax":
                 return engine.tax(inputs[0], inputs[1]);
             case "temperature":
-                return engine.convertTemperature(inputs[0], fromUnit, toUnit);
+                return engine.calculateTemperature(inputs[0], fromUnit, toUnit);
             case "numberbase":
                 return engine.convertBase((String) inputs[0], (String) inputs[1], (String) inputs[2]);
 

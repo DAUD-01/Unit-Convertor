@@ -36,8 +36,7 @@ public class FormulaEngine {
         return amount * (taxPercent / 100);
     }
 
-
-    public double convertTemperature(double value, String from, String to) {
+    public double calculateTemperature(double value, String from, String to) {
         if (from.equals(to))
             return value;
 
