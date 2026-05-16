@@ -1,4 +1,3 @@
-com\hub\Main.class
 com\hub\models\Category.class
 com\hub\services\ConversionService.class
 com\hub\services\ParsedInput.class
