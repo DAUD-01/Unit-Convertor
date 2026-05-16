@@ -92,23 +92,35 @@
 }
 
 /* --- COMBOBOX / DROPDOWN REPAIR --- */
-.combo-box {
+.combo-box,
+.dropdown {
     -fx-background-color: #1e2b3d;
     -fx-background-radius: 10;
     -fx-border-color: #334155;
     -fx-border-radius: 10;
     -fx-padding: 5;
-    -fx-color: white;
-    -fx-text-fill: white;
 }
 
-.combo-box .label {
-    -fx-text-fill: white !important;
+/* Forces the text color inside the active selected display area to be white */
+.combo-box .list-cell,
+.dropdown .list-cell,
+.combo-box>.cell,
+.dropdown>.cell {
+    -fx-text-fill: #ffffff !important;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Fallback override to ensure the inner label defaults to white */
+.combo-box .label,
+.dropdown .label {
+    -fx-text-fill: #ffffff !important;
     -fx-font-size: 16px;
 }
 
 /* Fixes the arrow color */
-.combo-box .arrow-button .arrow {
+.combo-box .arrow-button .arrow,
+.dropdown .arrow-button .arrow {
     -fx-background-color: #a0aec0;
 }
 
@@ -122,13 +134,13 @@
 
 .combo-box-popup .list-cell {
     -fx-background-color: #1e2b3d;
-    -fx-text-fill: #cbd5e1;
+    -fx-text-fill: #cbd5e1 !important;
     -fx-padding: 10;
 }
 
 .combo-box-popup .list-cell:hover {
     -fx-background-color: #3b82f6;
-    -fx-text-fill: white;
+    -fx-text-fill: white !important;
 }
 
 /* --- RESULT DISPLAY --- */
