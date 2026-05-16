@@ -15,7 +15,6 @@ fxml\dashboard.fxml
 com\hub\utils\FileLoader.class
 com\hub\models\RootData.class
 fxml\convertor.fxml
-com\hub\core\AlgorithmEngine.class
 com\hub\services\InputParserService.class
 com\hub\ui\controllers\ConvertorController.class
 com\hub\ui\utils\FXAnimation.class

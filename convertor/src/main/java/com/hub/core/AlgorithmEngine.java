@@ -1,15 +1,6 @@
 package com.hub.core;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 public class AlgorithmEngine {
-
-    // AGE CALCULATOR
-    public int calculateAge(String birthdate) {
-        LocalDate birth = LocalDate.parse(birthdate);
-        return Period.between(birth, LocalDate.now()).getYears();
-    }
 
     // NUMBER TO ROMAN
     public String toRoman(int number) {

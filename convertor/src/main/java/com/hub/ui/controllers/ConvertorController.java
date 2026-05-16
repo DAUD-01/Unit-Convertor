@@ -59,7 +59,7 @@ public class ConvertorController {
 
         String type = category.type != null ? category.type : "factor";
 
-        // Handle specific custom layout modes
+        // Keep special handling ONLY for Temperature and NumberBase
         if (name.equalsIgnoreCase("Temperature") || name.equalsIgnoreCase("NumberBase")
                 || name.equalsIgnoreCase("Number Base")) {
             fromBox.setDisable(false);
@@ -86,6 +86,7 @@ public class ConvertorController {
                 inputField.setPromptText("Enter comma separated values");
             }
         } else {
+            // This blocks runs for standard conversions AND our new Time unit!
             fromBox.setDisable(false);
             toBox.setDisable(false);
             inputField.setPromptText("0.00");
@@ -113,21 +114,18 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // 1. ALGORITHMS (Age Calculation Rule)
+            // 1. ALGORITHMS (Cleaned out AgeCalculator completely)
             if ("algorithm".equals(type)) {
-                if (categoryName.equalsIgnoreCase("AgeCalculator")) {
-                    Object res = algorithmService.execute("ageCalculator", text);
-                    resultLabel.setText(res + " Years");
-                }
+                // Roman Numerals or other raw algorithms can still live here smoothly
                 return;
             }
 
-            // 2. SYSTEM FORMULAS (Finance & Health Multi-parameters)
+            // 2. SYSTEM FORMULAS
             if ("formula".equals(type)) {
                 String[] parts = text.split(",");
                 double[] inputs = new double[parts.length];
                 for (int i = 0; i < parts.length; i++) {
-                    inputs[i] = Double.parseDouble(parts[i].trim()); // Clean out spaces safely
+                    inputs[i] = Double.parseDouble(parts[i].trim());
                 }
 
                 double result = formulaService.calculate(categoryName, inputs);
@@ -172,7 +170,7 @@ public class ConvertorController {
                 return;
             }
 
-            // 5. STANDARD CONVERSION FALLBACK
+            // 5. STANDARD CONVERSION FALLBACK (Time runs instantly here!)
             double value = Double.parseDouble(text);
             double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
