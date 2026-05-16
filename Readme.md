@@ -251,11 +251,11 @@ convertor/
 ## Picture
 
 ### Dashboard
-![Dashboard](xibc=src/main/resources/images/dashboard.png)
+![Dashboard](./screenshots/dashboard.png)
 
 ### Category Screen
-![Category](src/main/resources/images/category.png)
+![Category](./screenshots/category.png)
 
 ### Conversion Screen
-![Conversion](src/main/resources/images/convertor.png)
+![Conversion](./screenshots/convertor.png)
 ```
