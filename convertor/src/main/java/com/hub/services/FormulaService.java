@@ -28,6 +28,12 @@ public class FormulaService {
             case "tax":
                 return engine.tax(inputs[0], inputs[1]);
 
+            case "bodyfat":
+                return engine.bodyFat(inputs[0], inputs[1], inputs[2], inputs[3]);
+                
+            case "waterintake":
+                return engine.waterIntake(inputs[0], inputs[1]);
+
             default:
                 throw new IllegalArgumentException("Unknown formula type: " + type);
         }

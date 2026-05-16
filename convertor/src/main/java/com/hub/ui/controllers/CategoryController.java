@@ -23,8 +23,7 @@ public class CategoryController {
 
     /**
      * Injects the data and triggers the UI render.
-     * 
-     * @param categories The map of sub-categories (e.g., Length, Mass, etc.)
+     * * @param categories The map of sub-categories (e.g., Length, Mass, etc.)
      */
     public void setCategory(Map<String, Category> categories) {
         this.currentCategories = categories;
@@ -81,7 +80,8 @@ public class CategoryController {
 
     /**
      * Navigates to the actual conversion screen.
-     * Passes the specific category and the whole group for the return trip.
+     * Passes the specific category name, object, and the whole group for the return
+     * trip.
      */
     private void openConvertor(String subCategoryName) {
         try {
@@ -90,7 +90,10 @@ public class CategoryController {
             VBox view = loader.load();
 
             ConvertorController controller = loader.getController();
-            controller.setCategory(selected);
+
+            // --- UPDATED HERE: Now passes both the name and the category data ---
+            controller.setCategory(subCategoryName, selected);
+
             // CRITICAL: Hand off the whole map so we can come back to it
             controller.setParentData(currentCategories);
 

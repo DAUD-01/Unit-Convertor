@@ -35,4 +35,13 @@ public class FormulaEngine {
     public double tax(double amount, double taxPercent) {
         return amount * (taxPercent / 100);
     }
+
+    // Add inside FormulaEngine.java
+    public double bodyFat(double gender, double height, double waist, double neck) {
+        return (waist - neck) / (height > 0 ? height : 1) * 100; // Simplified
+    }
+
+    public double waterIntake(double weight, double activity_level) {
+        return (weight * 0.03) + (activity_level * 0.5); // Liters
+    }
 }
