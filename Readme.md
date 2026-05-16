@@ -247,9 +247,6 @@ convertor/
 
 ## Picture
 
-```md id="b2srm0"
-## Picture
-
 ### Dashboard
 ![Dashboard](./screenshots/dashboard.png)
 
@@ -258,4 +255,4 @@ convertor/
 
 ### Conversion Screen
 ![Conversion](./screenshots/convertor.png)
-```
+
