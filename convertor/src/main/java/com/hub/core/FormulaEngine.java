@@ -36,9 +36,19 @@ public class FormulaEngine {
         return amount * (taxPercent / 100);
     }
 
-    // Add inside FormulaEngine.java
+    // Missing BodyFat Engine Logic
     public double bodyFat(double gender, double height, double waist, double neck) {
-        return (waist - neck) / (height > 0 ? height : 1) * 100; // Simplified
+        // Standard US Navy Circumference Method formula simplification proxy
+        if (gender == 1) { // Male
+            return 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+        } else { // Female
+            return 163.205 * Math.log10(waist + 4.0 - neck) - 97.684 * Math.log10(height) - 78.387;
+        }
+    }
+
+    // Missing Discount Calculation logic
+    public double discount(double originalPrice, double discountPercentage) {
+        return originalPrice * (1 - (discountPercentage / 100));
     }
 
     public double waterIntake(double weight, double activity_level) {

@@ -47,7 +47,6 @@ public class ConvertorController {
         this.parentGroup = group;
     }
 
-    // Accepts both the string key name and the Category config payload
     public void setCategory(String name, Category category) {
         this.categoryName = name;
         this.currentCategory = category;
@@ -55,27 +54,46 @@ public class ConvertorController {
         fromBox.getItems().clear();
         toBox.getItems().clear();
 
-        String type = (category != null && category.type != null) ? category.type : "factor";
+        if (category == null)
+            return;
 
-        // Adjust UI configuration based on specific system requirements
+        String type = category.type != null ? category.type : "factor";
+
+        // Force drop-down populations for custom intercept categories
+        if (name.equalsIgnoreCase("Temperature") || name.equalsIgnoreCase("NumberBase")
+                || name.equalsIgnoreCase("Number Base")) {
+            fromBox.setDisable(false);
+            toBox.setDisable(false);
+            inputField.setPromptText("0.00");
+            if (category.units != null) {
+                fromBox.getItems().addAll(category.units.keySet());
+                toBox.getItems().addAll(category.units.keySet());
+                if (!fromBox.getItems().isEmpty())
+                    fromBox.setValue(fromBox.getItems().get(0));
+                if (toBox.getItems().size() > 1)
+                    toBox.setValue(toBox.getItems().get(1));
+            }
+            return;
+        }
+
+        // Handle structural input styling differences for complex multi-variable fields
         if ("formula".equals(type) || "algorithm".equals(type)) {
             fromBox.setDisable(true);
             toBox.setDisable(true);
 
-            if (category != null && category.inputs != null) {
+            if (category.inputs != null) {
                 inputField.setPromptText("Enter values: " + String.join(", ", category.inputs));
             } else {
-                inputField.setPromptText("Enter values separated by commas");
+                inputField.setPromptText("Enter comma separated values");
             }
         } else {
             fromBox.setDisable(false);
             toBox.setDisable(false);
             inputField.setPromptText("0.00");
 
-            if (category != null && category.units != null) {
+            if (category.units != null) {
                 fromBox.getItems().addAll(category.units.keySet());
                 toBox.getItems().addAll(category.units.keySet());
-
                 if (!fromBox.getItems().isEmpty())
                     fromBox.setValue(fromBox.getItems().get(0));
                 if (toBox.getItems().size() > 1)
@@ -96,7 +114,7 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // 1. INTERCEPT ALGORITHMS (Age, etc.) FIRST to bypass primitive numeric parsers
+            // 1. ALGORITHMS (Age Calculation Routing Rule)
             if ("algorithm".equals(type)) {
                 if (categoryName.equalsIgnoreCase("AgeCalculator")) {
                     Object res = algorithmService.execute("ageCalculator", text);
@@ -105,7 +123,7 @@ public class ConvertorController {
                 return;
             }
 
-            // 2. INTERCEPT FORMULAS (Finance, Health) SECOND using tokenized string inputs
+            // 2. INTERCEPT SYSTEM FORMULAS (Finance, Health Multi-parameters)
             if ("formula".equals(type)) {
                 String[] parts = text.split(",");
                 double[] inputs = new double[parts.length];
@@ -118,28 +136,36 @@ public class ConvertorController {
                 return;
             }
 
-            // 3. INTERCEPT CUSTOM NON-FACTOR FIELDS (Temperature & Number Base conversions)
+            // 3. SPECIAL NON-LINEAR INTERCEPTS (Temperature Math Engine overrides)
             if (categoryName.equalsIgnoreCase("Temperature")) {
                 double val = Double.parseDouble(text);
-                String from = fromBox.getValue() != null ? fromBox.getValue() : "c";
-                String to = toBox.getValue() != null ? toBox.getValue() : "c";
+                String from = fromBox.getValue();
+                String to = toBox.getValue();
 
+                if (from == null || to == null)
+                    return;
+
+                from = from.toLowerCase();
+                to = to.toLowerCase();
+
+                // Base anchor conversion directly mapped through Celsius
                 double c = val;
-                if (from.toLowerCase().startsWith("f"))
+                if (from.startsWith("f"))
                     c = (val - 32) * 5 / 9;
-                else if (from.toLowerCase().startsWith("k"))
+                else if (from.startsWith("k"))
                     c = val - 273.15;
 
                 double res = c;
-                if (to.toLowerCase().startsWith("f"))
+                if (to.startsWith("f"))
                     res = c * 9 / 5 + 32;
-                else if (to.toLowerCase().startsWith("k"))
-                    res = res + 273.15;
+                else if (to.startsWith("k"))
+                    res = c + 273.15;
 
                 resultLabel.setText(String.format("%.2f", res));
                 return;
             }
 
+            // 4. NUMBER BASE INTERCEPT
             if (categoryName.equalsIgnoreCase("NumberBase") || categoryName.equalsIgnoreCase("Number Base")) {
                 int radixFrom = getRadix(fromBox.getValue());
                 int radixTo = getRadix(toBox.getValue());
@@ -148,13 +174,13 @@ public class ConvertorController {
                 return;
             }
 
-            // 4. FALLBACK: Standard Factor Multiplier/Divisor calculations
+            // 5. STANDARD FALLBACK FACTOR ENGINE
             double value = Double.parseDouble(text);
             double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
 
         } catch (Exception e) {
-            resultLabel.setText("..."); // Soft failure validation during real-time user keystrokes
+            resultLabel.setText("..."); // Graceful placeholder update while user modifies inputs live
         }
     }
 
