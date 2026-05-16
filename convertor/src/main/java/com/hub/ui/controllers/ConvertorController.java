@@ -47,24 +47,23 @@ public class ConvertorController {
         this.parentGroup = group;
     }
 
-    // CHANGED: Now accepts the name (e.g. "BMI" or "Temperature")
+    // Accepts both the string key name and the Category config payload
     public void setCategory(String name, Category category) {
         this.categoryName = name;
         this.currentCategory = category;
+
         fromBox.getItems().clear();
         toBox.getItems().clear();
 
-        String type = category.type != null ? category.type : "factor";
+        String type = (category != null && category.type != null) ? category.type : "factor";
 
-        // UI Adaptation Logic
+        // Adjust UI configuration based on specific system requirements
         if ("formula".equals(type) || "algorithm".equals(type)) {
             fromBox.setDisable(true);
             toBox.setDisable(true);
 
-            if (category.inputs != null) {
-                inputField.setPromptText("Enter: " + String.join(", ", category.inputs));
-            } else if (name.toLowerCase().contains("roman")) {
-                inputField.setPromptText("Enter Number or Roman Numeral");
+            if (category != null && category.inputs != null) {
+                inputField.setPromptText("Enter values: " + String.join(", ", category.inputs));
             } else {
                 inputField.setPromptText("Enter values separated by commas");
             }
@@ -73,7 +72,7 @@ public class ConvertorController {
             toBox.setDisable(false);
             inputField.setPromptText("0.00");
 
-            if (category.units != null) {
+            if (category != null && category.units != null) {
                 fromBox.getItems().addAll(category.units.keySet());
                 toBox.getItems().addAll(category.units.keySet());
 
@@ -86,7 +85,7 @@ public class ConvertorController {
     }
 
     private void autoConvert() {
-        if (currentCategory == null)
+        if (currentCategory == null || categoryName == null)
             return;
         String text = inputField.getText().trim();
         if (text.isEmpty()) {
@@ -97,59 +96,50 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // 1. FORMULAS (Finance, Health)
+            // 1. INTERCEPT ALGORITHMS (Age, etc.) FIRST to bypass primitive numeric parsers
+            if ("algorithm".equals(type)) {
+                if (categoryName.equalsIgnoreCase("AgeCalculator")) {
+                    Object res = algorithmService.execute("ageCalculator", text);
+                    resultLabel.setText(res + " Years");
+                }
+                return;
+            }
+
+            // 2. INTERCEPT FORMULAS (Finance, Health) SECOND using tokenized string inputs
             if ("formula".equals(type)) {
                 String[] parts = text.split(",");
                 double[] inputs = new double[parts.length];
-                for (int i = 0; i < parts.length; i++)
+                for (int i = 0; i < parts.length; i++) {
                     inputs[i] = Double.parseDouble(parts[i].trim());
+                }
 
                 double result = formulaService.calculate(categoryName, inputs);
                 resultLabel.setText(String.format("%.4f", result));
                 return;
             }
 
-            // 2. ALGORITHMS (Age, Roman)
-            if ("algorithm".equals(type)) {
-                if (categoryName.equalsIgnoreCase("AgeCalculator")) {
-                    Object res = algorithmService.execute("ageCalculator", text);
-                    resultLabel.setText(res + " Years");
-                } else if (categoryName.toLowerCase().contains("roman")) {
-                    try {
-                        int num = Integer.parseInt(text);
-                        resultLabel.setText((String) algorithmService.execute("toRoman", num));
-                    } catch (NumberFormatException ex) {
-                        resultLabel.setText(algorithmService.execute("fromRoman", text.toUpperCase()).toString());
-                    }
-                }
-                return;
-            }
-
-            // 3. TEMPERATURE (Math Intercept)
+            // 3. INTERCEPT CUSTOM NON-FACTOR FIELDS (Temperature & Number Base conversions)
             if (categoryName.equalsIgnoreCase("Temperature")) {
                 double val = Double.parseDouble(text);
                 String from = fromBox.getValue() != null ? fromBox.getValue() : "c";
                 String to = toBox.getValue() != null ? toBox.getValue() : "c";
 
-                // Convert to Celsius first
                 double c = val;
                 if (from.toLowerCase().startsWith("f"))
                     c = (val - 32) * 5 / 9;
                 else if (from.toLowerCase().startsWith("k"))
                     c = val - 273.15;
 
-                // Convert Celsius to Target
                 double res = c;
                 if (to.toLowerCase().startsWith("f"))
                     res = c * 9 / 5 + 32;
                 else if (to.toLowerCase().startsWith("k"))
-                    res = c + 273.15;
+                    res = res + 273.15;
 
                 resultLabel.setText(String.format("%.2f", res));
                 return;
             }
 
-            // 4. NUMBER BASE (Computing Intercept)
             if (categoryName.equalsIgnoreCase("NumberBase") || categoryName.equalsIgnoreCase("Number Base")) {
                 int radixFrom = getRadix(fromBox.getValue());
                 int radixTo = getRadix(toBox.getValue());
@@ -158,13 +148,13 @@ public class ConvertorController {
                 return;
             }
 
-            // 5. STANDARD FACTOR RATIOS (Length, Weight, etc.)
+            // 4. FALLBACK: Standard Factor Multiplier/Divisor calculations
             double value = Double.parseDouble(text);
             double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
 
         } catch (Exception e) {
-            resultLabel.setText("..."); // Fails softly while user is typing
+            resultLabel.setText("..."); // Soft failure validation during real-time user keystrokes
         }
     }
 
@@ -197,7 +187,6 @@ public class ConvertorController {
             stage.setScene(scene);
             stage.setFullScreen(true);
             FXAnimation.fadeIn(view);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
