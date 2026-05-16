@@ -1,13 +1,8 @@
 package com.hub.ui.controllers;
 
 import com.hub.core.ConversionEngine;
-import com.hub.core.AlgorithmEngine;
-import com.hub.core.FormulaEngine;
 import com.hub.models.Category;
-import com.hub.services.AlgorithmService;
-import com.hub.services.FormulaService;
 import com.hub.ui.utils.FXAnimation;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -69,63 +64,18 @@ public class ConvertorController {
     private void autoConvert() {
         if (currentCategory == null)
             return;
-
         try {
             String text = inputField.getText().trim();
             if (text.isEmpty()) {
                 resultLabel.setText("0.00");
                 return;
             }
-
-            String type = currentCategory.type; // "factor", "formula", or "algorithm"
-            String from = fromBox.getValue();
-            String to = toBox.getValue();
-
-            if ("factor".equals(type)) {
-                double value = Double.parseDouble(text);
-                double result = ConversionEngine.convert(value, from, to, currentCategory);
-                resultLabel.setText(String.format("%.4f", result));
-
-            } else if ("formula".equals(type)) {
-                FormulaService service = new FormulaService();
-                // Handle Temperature specifically
-                if (currentCategory.getName().equalsIgnoreCase("Temperature")) {
-                    double val = Double.parseDouble(text);
-                    double res = service.calculateTemperature(val, from, to);
-                    resultLabel.setText(String.format("%.2f", res));
-                }
-                // Handle Health/Finance (BMI, Tax, etc.)
-                else {
-                    // If the formula needs multiple inputs (e.g. BMI),
-                    // users should enter them like "70, 1.75"
-                    double[] inputs = parseMultipleInputs(text);
-                    double res = service.calculate(currentCategory.getName(), inputs);
-                    resultLabel.setText(String.format("%.2f", res));
-                }
-
-            } else if ("algorithm".equals(type)) {
-                AlgorithmService service = new AlgorithmService();
-                if (currentCategory.getName().equalsIgnoreCase("Number Base")) {
-                    Object res = service.execute("numberbase", text, from, to);
-                    resultLabel.setText(res.toString());
-                } else {
-                    Object res = service.execute(currentCategory.getName(), text);
-                    resultLabel.setText(res.toString());
-                }
-            }
+            double value = Double.parseDouble(text);
+            double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
+            resultLabel.setText(String.format("%.4f", result));
         } catch (Exception e) {
             resultLabel.setText("Error");
         }
-    }
-
-    // Helper to handle formulas that need more than one number
-    private double[] parseMultipleInputs(String input) {
-        String[] parts = input.split(",");
-        double[] vals = new double[parts.length];
-        for (int i = 0; i < parts.length; i++) {
-            vals[i] = Double.parseDouble(parts[i].trim());
-        }
-        return vals;
     }
 
     @FXML

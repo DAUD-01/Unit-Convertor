@@ -35,23 +35,4 @@ public class FormulaEngine {
     public double tax(double amount, double taxPercent) {
         return amount * (taxPercent / 100);
     }
-
-    public double calculateTemperature(double value, String from, String to) {
-        if (from.equals(to))
-            return value;
-
-        // Convert input to Celsius first
-        double celsius = switch (from.toLowerCase()) {
-            case "fahrenheit" -> (value - 32) * 5 / 9;
-            case "kelvin" -> value - 273.15;
-            default -> value; // already celsius
-        };
-
-        // Convert Celsius to target
-        return switch (to.toLowerCase()) {
-            case "fahrenheit" -> (celsius * 9 / 5) + 32;
-            case "kelvin" -> celsius + 273.15;
-            default -> celsius;
-        };
-    }
 }

@@ -1,8 +1,6 @@
 package com.hub.services;
 
 import com.hub.core.FormulaEngine;
-import com.hub.core.AlgorithmEngine;
-import com.hub.core.ConversionEngine;
 
 public class FormulaService {
 
@@ -29,10 +27,6 @@ public class FormulaService {
 
             case "tax":
                 return engine.tax(inputs[0], inputs[1]);
-            case "temperature":
-                return engine.calculateTemperature(inputs[0], fromUnit, toUnit);
-            case "numberbase":
-                return engine.convertBase((String) inputs[0], (String) inputs[1], (String) inputs[2]);
 
             default:
                 throw new IllegalArgumentException("Unknown formula type: " + type);
