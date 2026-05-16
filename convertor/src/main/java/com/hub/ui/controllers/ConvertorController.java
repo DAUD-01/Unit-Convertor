@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.Map;
 
@@ -213,14 +212,18 @@ public class ConvertorController {
             CategoryController controller = loader.getController();
             controller.setCategory(parentGroup);
 
-            Stage stage = (Stage) inputField.getScene().getWindow();
-            Scene scene = new Scene(view, 1920, 1080);
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            // FIX: Safely grab the current active scene using inputField instead of root
+            if (inputField != null && inputField.getScene() != null) {
+                Scene currentScene = inputField.getScene();
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
 
-            stage.setScene(scene);
-            stage.setFullScreen(true);
-            FXAnimation.fadeIn(view);
+                currentScene.setRoot(view);
+                FXAnimation.fadeIn(view);
+            } else {
+                System.err.println("Error: Could not retrieve active window scene layout context.");
+            }
         } catch (Exception e) {
+            System.err.println("Navigation transition failed inside goback():");
             e.printStackTrace();
         }
     }

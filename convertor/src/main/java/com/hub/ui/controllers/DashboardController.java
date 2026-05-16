@@ -99,6 +99,7 @@ public class DashboardController {
 
             Stage stage = (Stage) root.getScene().getWindow();
             Scene scene = new Scene(view);
+            scene.setFill(javafx.scene.paint.Color.web("#101d2d"));
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
             FXAnimation.fadeIn(view);

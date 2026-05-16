@@ -66,18 +66,16 @@ public class CategoryController {
             VBox view = loader.load();
 
             ConvertorController controller = loader.getController();
-
-            // Pass BOTH the unique name string and the model data object
             controller.setCategory(subCategoryName, selected);
             controller.setParentData(currentCategories);
 
-            Stage stage = (Stage) root.getScene().getWindow();
-            Scene scene = new Scene(view, 1920, 1080);
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.setFullScreen(true);
-            FXAnimation.fadeIn(view);
+            Scene currentScene = root.getScene();
+            if (currentScene != null) {
+                // Force the underlying window backing to stay dark
+                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
+                currentScene.setRoot(view);
+                FXAnimation.fadeIn(view);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,12 +86,14 @@ public class CategoryController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             VBox view = loader.load();
-            Stage stage = (Stage) root.getScene().getWindow();
-            Scene scene = new Scene(view);
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-            FXAnimation.fadeIn(view);
-            stage.setScene(scene);
-            stage.setFullScreen(true);
+
+            Scene currentScene = root.getScene();
+            if (currentScene != null) {
+                // Force the underlying window backing to stay dark
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
+                currentScene.setRoot(view);
+                FXAnimation.fadeIn(view);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
