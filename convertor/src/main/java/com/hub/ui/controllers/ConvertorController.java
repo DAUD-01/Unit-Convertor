@@ -83,7 +83,7 @@ public class ConvertorController {
             if (category.inputs != null) {
                 inputField.setPromptText("Enter values: " + String.join(", ", category.inputs));
             } else {
-                inputField.setPromptText("Enter comma separated values");
+                inputField.setPromptText("Enter roman or number: ");
             }
         } else {
             // This blocks runs for standard conversions AND our new Time unit!
@@ -114,9 +114,20 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // 1. ALGORITHMS (Cleaned out AgeCalculator completely)
-            if ("algorithm".equals(type)) {
-                // Roman Numerals or other raw algorithms can still live here smoothly
+            if ("algorithm".equals(type) || categoryName.equalsIgnoreCase("RomanNumerals")) {
+                if (categoryName.equalsIgnoreCase("RomanNumerals")) {
+                    try {
+                        // Try parsing as an integer to convert Number -> Roman
+                        int num = Integer.parseInt(text);
+                        Object res = algorithmService.execute("toroman", num);
+                        resultLabel.setText(res.toString());
+                    } catch (NumberFormatException nfe) {
+                        // If it's not a number, assume the user is typing Roman characters -> Convert
+                        // Roman -> Number
+                        Object res = algorithmService.execute("fromroman", text.toUpperCase());
+                        resultLabel.setText(res.toString());
+                    }
+                }
                 return;
             }
 
