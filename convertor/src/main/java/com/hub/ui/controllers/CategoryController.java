@@ -59,6 +59,34 @@ public class CategoryController {
         root.getChildren().addAll(flow, backBtn);
     }
 
+    @FXML
+    private void goBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            VBox view = loader.load();
+
+            Scene currentScene = root.getScene();
+            if (currentScene != null) {
+                // 1. Force background color to prevent flickers
+                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
+
+                // 2. Swapping layout tree structure components
+                currentScene.setRoot(view);
+
+                // 3. FIX: Lock window bounds to full-screen immediately following the root swap
+                javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
+                if (stage != null) {
+                    stage.setFullScreen(true);
+                }
+
+                // 4. Crossfade animation
+                FXAnimation.fadeIn(view);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void openConvertor(String subCategoryName) {
         try {
             Category selected = currentCategories.get(subCategoryName);
@@ -71,27 +99,15 @@ public class CategoryController {
 
             Scene currentScene = root.getScene();
             if (currentScene != null) {
-                // Force the underlying window backing to stay dark
                 currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
                 currentScene.setRoot(view);
-                FXAnimation.fadeIn(view);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    @FXML
-    private void goBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
-            VBox view = loader.load();
+                // FIX: Maintain full-screen lock state
+                javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
+                if (stage != null) {
+                    stage.setFullScreen(true);
+                }
 
-            Scene currentScene = root.getScene();
-            if (currentScene != null) {
-                // Force the underlying window backing to stay dark
-                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
-                currentScene.setRoot(view);
                 FXAnimation.fadeIn(view);
             }
         } catch (Exception e) {

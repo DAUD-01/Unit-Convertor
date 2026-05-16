@@ -212,18 +212,20 @@ public class ConvertorController {
             CategoryController controller = loader.getController();
             controller.setCategory(parentGroup);
 
-            // FIX: Safely grab the current active scene using inputField instead of root
             if (inputField != null && inputField.getScene() != null) {
                 Scene currentScene = inputField.getScene();
-                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
-
+                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
                 currentScene.setRoot(view);
+
+                // FIX: Force full-screen window persistence properties during the transition
+                javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
+                if (stage != null) {
+                    stage.setFullScreen(true);
+                }
+
                 FXAnimation.fadeIn(view);
-            } else {
-                System.err.println("Error: Could not retrieve active window scene layout context.");
             }
         } catch (Exception e) {
-            System.err.println("Navigation transition failed inside goback():");
             e.printStackTrace();
         }
     }
