@@ -30,7 +30,8 @@ public class ConvertorController {
 
     private String categoryName;
     private Category currentCategory;
-    private Map<String, Category> parentGroup;
+    private Map<String, Category> parentGroup; // Keeps your sub-category units map data
+    private String parentGroupName; // Tracks the display title string (e.g., "Common")
 
     private final FormulaService formulaService = new FormulaService();
     private final AlgorithmService algorithmService = new AlgorithmService();
@@ -42,8 +43,9 @@ public class ConvertorController {
         toBox.setOnAction(e -> autoConvert());
     }
 
-    public void setParentData(Map<String, Category> group) {
-        this.parentGroup = group;
+    public void setParentData(String groupName, Map<String, Category> parentGroup) {
+        this.parentGroupName = groupName;
+        this.parentGroup = parentGroup;
     }
 
     public void setCategory(String name, Category category) {
@@ -210,14 +212,17 @@ public class ConvertorController {
             VBox view = loader.load();
 
             CategoryController controller = loader.getController();
-            controller.setCategory(parentGroup);
+
+            // FIX: Pass both the Name String and the Data Map structure to satisfy the new
+            // signature
+            controller.setCategory(parentGroupName, parentGroup);
 
             if (inputField != null && inputField.getScene() != null) {
                 Scene currentScene = inputField.getScene();
                 currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
                 currentScene.setRoot(view);
 
-                // FIX: Force full-screen window persistence properties during the transition
+                // Force full-screen window persistence properties during the transition
                 javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
                 if (stage != null) {
                     stage.setFullScreen(true);

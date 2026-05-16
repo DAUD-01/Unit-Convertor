@@ -13,7 +13,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/fxml/dashboard.fxml"));
 
-        Scene scene = new Scene(loader.load(), 900, 600);
+        Scene scene = new Scene(loader.load());
 
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 

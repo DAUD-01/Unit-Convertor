@@ -11,7 +11,8 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hub.ui.controllers.CategoryController">
 
-    <Label text="Categories"
+    <Label fx:id="titleLabel" 
+           text="Categories"
            styleClass="title"/>
 
 </VBox>

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.FlowPane;
@@ -18,11 +19,20 @@ public class CategoryController {
 
     @FXML
     private VBox root;
+    @FXML
+    private Label titleLabel; // Injected element field reference from FXML
 
     private Map<String, Category> currentCategories;
 
-    public void setCategory(Map<String, Category> categories) {
+    // Modified signature to receive the clicked Category name string from Dashboard
+    public void setCategory(String title, Map<String, Category> categories) {
         this.currentCategories = categories;
+
+        // Update the header label instantly before rendering nodes
+        if (titleLabel != null && title != null) {
+            titleLabel.setText(title);
+        }
+
         loadSubCategories();
     }
 
@@ -67,19 +77,14 @@ public class CategoryController {
 
             Scene currentScene = root.getScene();
             if (currentScene != null) {
-                // 1. Force background color to prevent flickers
-                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
-
-                // 2. Swapping layout tree structure components
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
                 currentScene.setRoot(view);
 
-                // 3. FIX: Lock window bounds to full-screen immediately following the root swap
                 javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
                 if (stage != null) {
                     stage.setFullScreen(true);
                 }
 
-                // 4. Crossfade animation
                 FXAnimation.fadeIn(view);
             }
         } catch (Exception e) {
@@ -95,14 +100,18 @@ public class CategoryController {
 
             ConvertorController controller = loader.getController();
             controller.setCategory(subCategoryName, selected);
-            controller.setParentData(currentCategories);
+
+            // FIX: Extract the current category name (e.g., "Common") and pass it as the
+            // first argument
+            String currentTitle = (titleLabel != null) ? titleLabel.getText() : "Category";
+            controller.setParentData(currentTitle, currentCategories);
 
             Scene currentScene = root.getScene();
             if (currentScene != null) {
                 currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
                 currentScene.setRoot(view);
 
-                // FIX: Maintain full-screen lock state
+                // Maintain full-screen lock state
                 javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
                 if (stage != null) {
                     stage.setFullScreen(true);
@@ -111,6 +120,7 @@ public class CategoryController {
                 FXAnimation.fadeIn(view);
             }
         } catch (Exception e) {
+            System.err.println("Failed to slide into convertor page layout view for: " + subCategoryName);
             e.printStackTrace();
         }
     }

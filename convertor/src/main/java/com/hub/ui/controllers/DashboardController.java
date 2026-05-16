@@ -87,24 +87,38 @@ public class DashboardController {
             CategoryController controller = loader.getController();
 
             // Pass the pre-loaded data to the controller
+            // Inside DashboardController.java -> openCategory()
             switch (categoryName) {
-                case "Common" -> controller.setCategory(data.Common);
-                case "Finance" -> controller.setCategory(data.Finance);
-                case "Science" -> controller.setCategory(data.Science);
-                case "Computing" -> controller.setCategory(data.Computing);
-                case "Physics" -> controller.setCategory(data.Physics);
-                case "Health" -> controller.setCategory(data.Health);
-                case "Tools" -> controller.setCategory(data.Tools);
+                case "Common" -> controller.setCategory("Common", data.Common);
+                case "Finance" -> controller.setCategory("Finance", data.Finance);
+                case "Science" -> controller.setCategory("Science", data.Science);
+                case "Computing" -> controller.setCategory("Computing", data.Computing);
+                case "Physics" -> controller.setCategory("Physics", data.Physics);
+                case "Health" -> controller.setCategory("Health", data.Health);
+                case "Tools" -> controller.setCategory("Tools", data.Tools);
             }
 
-            Stage stage = (Stage) root.getScene().getWindow();
-            Scene scene = new Scene(view);
-            scene.setFill(javafx.scene.paint.Color.web("#101d2d"));
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            // FIX: Reuse the current active scene context instead of instantiating a new
+            // one
+            if (root != null && root.getScene() != null) {
+                Scene currentScene = root.getScene();
 
-            FXAnimation.fadeIn(view);
-            stage.setScene(scene);
-            stage.setFullScreen(true);
+                // Keep the backing container layout strictly dark
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
+
+                // Swap layout content smoothly without breaking window constraints
+                currentScene.setRoot(view);
+
+                // Make sure the stage window maintains full-screen state execution safety
+                javafx.application.Platform.runLater(() -> {
+                    Stage stage = (Stage) currentScene.getWindow();
+                    if (stage != null) {
+                        stage.setFullScreen(true);
+                    }
+                });
+
+                FXAnimation.fadeIn(view);
+            }
 
         } catch (Exception e) {
             System.err.println("Failed to load category: " + categoryName);
