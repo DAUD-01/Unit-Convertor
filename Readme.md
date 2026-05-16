@@ -251,11 +251,5 @@ convertor/
 ## Picture
 
 ### Dashboard
-![Dashboard](src/main/resources/images/dashboard.png)
-
-### Category Screen
-![Category](src/main/resources/images/category.png)
-
-### Conversion Screen
-![Conversion](src/main/resources/images/convertor.png)
+![Dashboard](screenshots/dashboard.png)
 ```
