@@ -19,7 +19,7 @@
         <Button text="← Back" onAction="#goback" styleClass="back-button"/>
     </HBox>
 
-    <Label text="Unit Converter" styleClass="title"/>
+    <Label fx:id="windowHeaderLabel" text="Unit Converter" styleClass="title"/>
 
     <VBox styleClass="converter-card" maxWidth="600" spacing="25" alignment="CENTER">
         <padding>
