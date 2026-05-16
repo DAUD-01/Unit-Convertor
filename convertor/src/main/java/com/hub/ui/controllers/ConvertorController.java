@@ -93,7 +93,7 @@ public class ConvertorController {
             Stage stage = (Stage) inputField.getScene().getWindow();
 
             // 4. Update the Scene
-            Scene scene = new Scene(view, 1920, 1080);
+            Scene scene = new Scene(view);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
             stage.setScene(scene);

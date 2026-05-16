@@ -115,7 +115,7 @@ public class CategoryController {
             Stage stage = (Stage) root.getScene().getWindow();
             FXAnimation.fadeIn(view);
 
-            Scene scene = new Scene(view, 1920, 1080);
+            Scene scene = new Scene(view);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
             FXAnimation.fadeIn(view);
