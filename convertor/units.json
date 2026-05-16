@@ -252,11 +252,17 @@
         }
     },
     "Tools": {
-        "AgeCalculator": {
-            "type": "algorithm",
-            "inputs": [
-                "birthdate"
-            ]
+        "Time": {
+            "type": "factor",
+            "base": "seconds",
+            "units": {
+                "seconds": 1,
+                "minutes": 0.0166667,
+                "hours": 0.000277778,
+                "days": 0.000011574,
+                "weeks": 0.0000016534,
+                "years": 0.00000003171
+            }
         },
         "FuelEfficiency": {
             "type": "factor",
