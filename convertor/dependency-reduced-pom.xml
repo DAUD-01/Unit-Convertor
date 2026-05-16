@@ -38,6 +38,7 @@
             <transformer>
               <mainClass>com.hub.MainLauncher</mainClass>
             </transformer>
+            <transformer />
           </transformers>
           <filters>
             <filter>
