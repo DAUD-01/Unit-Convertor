@@ -22,7 +22,7 @@ public class DashboardController {
     private VBox root;
 
     // Load data once at the start
-    private final RootData data = FileLoader.loadData("units.json");
+    private final RootData data = FileLoader.loadData("/units.json");
 
     @FXML
     public void initialize() {
