@@ -98,10 +98,12 @@
     -fx-border-color: #334155;
     -fx-border-radius: 10;
     -fx-padding: 5;
+    -fx-color: white;
+    -fx-text-fill: white;
 }
 
 .combo-box .label {
-    -fx-text-fill: white;
+    -fx-text-fill: white !important;
     -fx-font-size: 16px;
 }
 

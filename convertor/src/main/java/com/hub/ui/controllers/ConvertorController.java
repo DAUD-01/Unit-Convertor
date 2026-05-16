@@ -27,6 +27,8 @@ public class ConvertorController {
     private ComboBox<String> toBox;
     @FXML
     private Label resultLabel;
+    @FXML
+    private Label windowHeaderLabel;
 
     private String categoryName;
     private Category currentCategory;
@@ -51,6 +53,10 @@ public class ConvertorController {
     public void setCategory(String name, Category category) {
         this.categoryName = name;
         this.currentCategory = category;
+
+        if (windowHeaderLabel != null && name != null) {
+            windowHeaderLabel.setText(name);
+        }
 
         fromBox.getItems().clear();
         toBox.getItems().clear();
