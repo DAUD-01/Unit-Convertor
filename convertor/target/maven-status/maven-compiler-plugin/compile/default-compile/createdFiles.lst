@@ -8,10 +8,14 @@ com\hub\core\ConversionEngine.class
 com\hub\ui\controllers\DashboardController.class
 com\hub\ui\controllers\CategoryController.class
 com\hub\models\Unit.class
+fxml\category.fxml
+css\style.css
 com\hub\core\FormulaEngine.class
 com\hub\services\FormulaService.class
+fxml\dashboard.fxml
 com\hub\utils\FileLoader.class
 com\hub\models\RootData.class
+fxml\convertor.fxml
 com\hub\core\AlgorithmEngine.class
 com\hub\services\InputParserService.class
 com\hub\ui\controllers\ConvertorController.class

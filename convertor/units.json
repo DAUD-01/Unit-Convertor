@@ -65,21 +65,22 @@
                 "tax_percent"
             ]
         },
-        "Interest": {
+        "SimpleInterest": {
             "type": "formula",
-            "subtypes": {
-                "simple": [
-                    "P",
-                    "R",
-                    "T"
-                ],
-                "compound": [
-                    "P",
-                    "R",
-                    "T",
-                    "n"
-                ]
-            }
+            "inputs": [
+                "Principal",
+                "Rate(%)",
+                "Time(Years)"
+            ]
+        },
+        "CompoundInterest": {
+            "type": "formula",
+            "inputs": [
+                "Principal",
+                "Rate(%)",
+                "Time(Years)",
+                "Compounding_Periods"
+            ]
         },
         "ROI": {
             "type": "formula",
@@ -98,7 +99,7 @@
     },
     "Science": {
         "Temperature": {
-            "type": "formula",
+            "type": "factor",
             "base": "C",
             "units": {
                 "C": 1,
@@ -163,13 +164,14 @@
             }
         },
         "NumberBase": {
-            "type": "algorithm",
-            "bases": [
-                "decimal",
-                "binary",
-                "hex",
-                "octal"
-            ]
+            "type": "factor",
+            "base": "Decimal",
+            "units": {
+                "Decimal": 1,
+                "Binary": 1,
+                "Hex": 1,
+                "Octal": 1
+            }
         }
     },
     "Physics": {

@@ -59,24 +59,20 @@ public class ConvertorController {
 
         String type = category.type != null ? category.type : "factor";
 
-        // Force drop-down populations for custom intercept categories
-        if (name.equalsIgnoreCase("Temperature") || name.equalsIgnoreCase("NumberBase")
-                || name.equalsIgnoreCase("Number Base")) {
-            fromBox.setDisable(false);
-            toBox.setDisable(false);
-            inputField.setPromptText("0.00");
-            if (category.units != null) {
-                fromBox.getItems().addAll(category.units.keySet());
-                toBox.getItems().addAll(category.units.keySet());
-                if (!fromBox.getItems().isEmpty())
-                    fromBox.setValue(fromBox.getItems().get(0));
-                if (toBox.getItems().size() > 1)
-                    toBox.setValue(toBox.getItems().get(1));
-            }
+        // Fix: Include AgeCalculator here so its dropdown menus are managed correctly
+        if (name.equalsIgnoreCase("Temperature") ||
+                name.equalsIgnoreCase("NumberBase") ||
+                name.equalsIgnoreCase("Number Base") ||
+                name.equalsIgnoreCase("AgeCalculator")) {
+
+            // Disable the dropdown selections because calculating age does not require unit
+            // switches
+            fromBox.setDisable(true);
+            toBox.setDisable(true);
+            inputField.setPromptText("YYYY-MM-DD");
             return;
         }
 
-        // Handle structural input styling differences for complex multi-variable fields
         if ("formula".equals(type) || "algorithm".equals(type)) {
             fromBox.setDisable(true);
             toBox.setDisable(true);
@@ -114,8 +110,8 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // 1. ALGORITHMS (Age Calculation Routing Rule)
-            if ("algorithm".equals(type)) {
+            // Fix: Route algorithms first to bypass checking empty dropdowns
+            if ("algorithm".equals(type) || categoryName.equalsIgnoreCase("AgeCalculator")) {
                 if (categoryName.equalsIgnoreCase("AgeCalculator")) {
                     Object res = algorithmService.execute("ageCalculator", text);
                     resultLabel.setText(res + " Years");
@@ -123,7 +119,7 @@ public class ConvertorController {
                 return;
             }
 
-            // 2. INTERCEPT SYSTEM FORMULAS (Finance, Health Multi-parameters)
+            // 2. SYSTEM FORMULAS
             if ("formula".equals(type)) {
                 String[] parts = text.split(",");
                 double[] inputs = new double[parts.length];
@@ -132,11 +128,11 @@ public class ConvertorController {
                 }
 
                 double result = formulaService.calculate(categoryName, inputs);
-                resultLabel.setText(String.format("%.4f", result));
+                resultLabel.setText(String.format("%.2f", result));
                 return;
             }
 
-            // 3. SPECIAL NON-LINEAR INTERCEPTS (Temperature Math Engine overrides)
+            // 3. SPECIAL INTERCEPT SYSTEM (Temperature Module)
             if (categoryName.equalsIgnoreCase("Temperature")) {
                 double val = Double.parseDouble(text);
                 String from = fromBox.getValue();
@@ -148,7 +144,6 @@ public class ConvertorController {
                 from = from.toLowerCase();
                 to = to.toLowerCase();
 
-                // Base anchor conversion directly mapped through Celsius
                 double c = val;
                 if (from.startsWith("f"))
                     c = (val - 32) * 5 / 9;
@@ -174,13 +169,13 @@ public class ConvertorController {
                 return;
             }
 
-            // 5. STANDARD FALLBACK FACTOR ENGINE
+            // 5. STANDARD CONVERSION FALLBACK
             double value = Double.parseDouble(text);
             double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
 
         } catch (Exception e) {
-            resultLabel.setText("..."); // Graceful placeholder update while user modifies inputs live
+            resultLabel.setText("...");
         }
     }
 
