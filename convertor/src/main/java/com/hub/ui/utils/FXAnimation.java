@@ -9,7 +9,7 @@ public class FXAnimation {
 
     public static void fadeIn(Node node) {
         node.setOpacity(0.0);
-        FadeTransition ft = new FadeTransition(Duration.millis(250), node);
+        FadeTransition ft = new FadeTransition(Duration.millis(800), node);
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();

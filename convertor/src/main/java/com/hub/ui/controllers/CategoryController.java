@@ -99,7 +99,7 @@ public class CategoryController {
 
             Scene currentScene = root.getScene();
             if (currentScene != null) {
-                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
                 currentScene.setRoot(view);
 
                 // FIX: Maintain full-screen lock state

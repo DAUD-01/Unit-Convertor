@@ -214,7 +214,7 @@ public class ConvertorController {
 
             if (inputField != null && inputField.getScene() != null) {
                 Scene currentScene = inputField.getScene();
-                currentScene.setFill(javafx.scene.paint.Color.web("#121212"));
+                currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
                 currentScene.setRoot(view);
 
                 // FIX: Force full-screen window persistence properties during the transition
