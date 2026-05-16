@@ -59,17 +59,20 @@ public class ConvertorController {
 
         String type = category.type != null ? category.type : "factor";
 
-        // Fix: Include AgeCalculator here so its dropdown menus are managed correctly
-        if (name.equalsIgnoreCase("Temperature") ||
-                name.equalsIgnoreCase("NumberBase") ||
-                name.equalsIgnoreCase("Number Base") ||
-                name.equalsIgnoreCase("AgeCalculator")) {
-
-            // Disable the dropdown selections because calculating age does not require unit
-            // switches
-            fromBox.setDisable(true);
-            toBox.setDisable(true);
-            inputField.setPromptText("YYYY-MM-DD");
+        // Handle specific custom layout modes
+        if (name.equalsIgnoreCase("Temperature") || name.equalsIgnoreCase("NumberBase")
+                || name.equalsIgnoreCase("Number Base")) {
+            fromBox.setDisable(false);
+            toBox.setDisable(false);
+            inputField.setPromptText("0.00");
+            if (category.units != null) {
+                fromBox.getItems().addAll(category.units.keySet());
+                toBox.getItems().addAll(category.units.keySet());
+                if (!fromBox.getItems().isEmpty())
+                    fromBox.setValue(fromBox.getItems().get(0));
+                if (toBox.getItems().size() > 1)
+                    toBox.setValue(toBox.getItems().get(1));
+            }
             return;
         }
 
@@ -110,8 +113,8 @@ public class ConvertorController {
         try {
             String type = currentCategory.type != null ? currentCategory.type : "factor";
 
-            // Fix: Route algorithms first to bypass checking empty dropdowns
-            if ("algorithm".equals(type) || categoryName.equalsIgnoreCase("AgeCalculator")) {
+            // 1. ALGORITHMS (Age Calculation Rule)
+            if ("algorithm".equals(type)) {
                 if (categoryName.equalsIgnoreCase("AgeCalculator")) {
                     Object res = algorithmService.execute("ageCalculator", text);
                     resultLabel.setText(res + " Years");
@@ -119,12 +122,12 @@ public class ConvertorController {
                 return;
             }
 
-            // 2. SYSTEM FORMULAS
+            // 2. SYSTEM FORMULAS (Finance & Health Multi-parameters)
             if ("formula".equals(type)) {
                 String[] parts = text.split(",");
                 double[] inputs = new double[parts.length];
                 for (int i = 0; i < parts.length; i++) {
-                    inputs[i] = Double.parseDouble(parts[i].trim());
+                    inputs[i] = Double.parseDouble(parts[i].trim()); // Clean out spaces safely
                 }
 
                 double result = formulaService.calculate(categoryName, inputs);

@@ -6,7 +6,7 @@ public class InputParserService {
             throw new IllegalArgumentException("Input is empty");
         }
 
-        input = input.trim().toLowerCase(); 
+        input = input.trim().toLowerCase();
 
         // if user enter 100 m
         if (input.contains(" ")) {
@@ -16,13 +16,14 @@ public class InputParserService {
                 throw new IllegalArgumentException("Invalid Input format");
             }
 
-            double value = Double.parseDouble(parts[0]); 
+            double value = Double.parseDouble(parts[0]);
             String unit = parts[1];
 
             return new ParsedInput(value, unit);
         }
-        
-        // if user enter 100m, then it will run loop through 1 0 0 and stop it as soon as m is encountered
+
+        // if user enter 100m, then it will run loop through 1 0 0 and stop it as soon
+        // as m is encountered
         int i = 0;
         while (i < input.length() && (Character.isDigit(input.charAt(i)) || input.charAt(i) == '.')) {
             i++;
