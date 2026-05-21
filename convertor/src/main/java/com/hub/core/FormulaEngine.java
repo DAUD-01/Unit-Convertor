@@ -17,7 +17,7 @@ public class FormulaEngine {
     public double compoundInterest(double p, double r, double t, double n) {
         return p * Math.pow((1 + r / 100), t);
     }
-
+v v 
     public double roi(double initial, double fin) {
         return ((fin - initial) / initial) * 100;
     }
