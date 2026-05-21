@@ -21,25 +21,25 @@ public class AlgorithmEngine {
 
     // ROMAN TO NUMBER
     public int fromRoman(String roman) {
-        java.util.Map<Character, Integer> map = java.util.Map.of(
-                'I', 1, 
-                'V', 5, 
+        java.util.Map<Character, Integer> map = java.util.Map.of( // key value pairs storing roman with their respective values
+                'I', 1,
+                'V', 5,
                 'X', 10,
-                'L', 50, 
-                'C', 100, 
-                'D', 500, 
+                'L', 50,
+                'C', 100,
+                'D', 500,
                 'M', 1000
                 );
 
         int result = 0;
 
-        for (int i = 0; i < roman.length(); i++) {
-            int current = map.get(roman.charAt(i));
+        for (int i = 0; i < roman.length(); i++) { // Iterate throught all char of roman
+            int current = map.get(roman.charAt(i)); // get current value
 
-            if (i + 1 < roman.length()) {
-                int next = map.get(roman.charAt(i + 1));
+            if (i + 1 < roman.length()) { // ensures i+1 does exceed the length of roman string
+                int next = map.get(roman.charAt(i + 1)); // next character of current roman
                 if (current < next) {
-                    result -= current;
+                    result -= current; 
                 } else {
                     result += current;
                 }

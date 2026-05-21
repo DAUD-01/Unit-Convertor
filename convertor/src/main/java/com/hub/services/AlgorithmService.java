@@ -6,7 +6,7 @@ public class AlgorithmService {
 
     public final AlgorithmEngine engine = new AlgorithmEngine();
 
-    public Object execute(String type, Object... inputs) {
+    public Object execute(String type, Object... inputs) { // everything in java is inherited from object, meaning that it can return value of any data type such as String, Integer, double etc
         switch (type.toLowerCase()) {
             case "toroman":
                 return engine.toRoman((int) inputs[0]);
