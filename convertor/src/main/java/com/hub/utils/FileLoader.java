@@ -24,8 +24,10 @@ public class FileLoader {
                 return null;
             }
 
-            Gson gson = new Gson();
+            Gson gson = new Gson(); // Create a Gson instance for JSON parsing
+            // converting the data from byte to actual JSON
             try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+                // conveting data from JSON to Java object
                 return gson.fromJson(reader, RootData.class);
             }
 
