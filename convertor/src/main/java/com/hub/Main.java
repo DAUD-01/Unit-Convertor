@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application { // this is the main class that launches the application, it extends the Application class from JavaFX which provides the necessary methods to create and manage a JavaFX application
 
     @Override
     public void start(Stage stage) throws Exception {

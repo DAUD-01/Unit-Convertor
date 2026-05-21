@@ -32,7 +32,7 @@ public class DashboardController {
     }
 
     private void renderDashboard() {
-        FlowPane flow = new FlowPane();
+        FlowPane flow = new FlowPane(); // Grid container for category cards
         flow.setHgap(40);
         flow.setVgap(40);
         flow.setAlignment(Pos.CENTER);
