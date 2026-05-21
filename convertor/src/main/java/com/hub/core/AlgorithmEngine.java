@@ -22,7 +22,7 @@ public class AlgorithmEngine {
     // ROMAN TO NUMBER
     public int fromRoman(String roman) {
         java.util.Map<Character, Integer> map = java.util.Map.of(
-                'I', 1,
+                'I', 1, 
                 'V', 5, 
                 'X', 10,
                 'L', 50, 
