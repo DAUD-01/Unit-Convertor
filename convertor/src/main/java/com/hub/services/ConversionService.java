@@ -11,6 +11,6 @@ public class ConversionService {
     }
 
     public double convert(double value, String from, String to, Category category) {
-        return engine.convert(value, to, from, category);
+        return ConversionEngine.convert(value, to, from, category);
     }
 }
