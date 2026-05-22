@@ -118,6 +118,8 @@ public class DashboardController {
                 });
 
                 FXAnimation.fadeIn(view);
+                FXAnimation.slideIn(view);
+
             }
 
         } catch (Exception e) {

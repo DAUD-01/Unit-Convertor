@@ -38,10 +38,35 @@
 
 /* --- NAVIGATION & TITLES --- */
 .title {
-    -fx-text-fill: white;
-    -fx-font-size: 40px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 40 0;
+    -fx-text-fill: linear-gradient(to right, #38bdf8, #a78bfa);
+    -fx-font-size: 42px;
+    -fx-font-weight: 800;
+
+    -fx-padding: 12 25 12 25;
+
+    /* border */
+    -fx-border-color: rgba(56, 189, 248, 0.5);
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+
+    /* background “glass” feel */
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 12px;
+
+    /* glow + depth */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 12, 0.3, 0, 4);
+
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.title:hover {
+    -fx-border-color: rgba(167, 139, 250, 0.9);
+    -fx-background-color: rgba(56, 189, 248, 0.08);
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.8), 18, 0.5, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .back-button {

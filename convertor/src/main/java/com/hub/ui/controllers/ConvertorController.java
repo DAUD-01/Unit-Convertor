@@ -228,9 +228,7 @@ public class ConvertorController {
 
             CategoryController controller = loader.getController();
 
-            // FIX: Pass both the Name String and the Data Map structure to satisfy the new
-            // signature
-            controller.setCategory(parentGroupName, parentGroup);
+            controller.setCategory(parentGroupName, parentGroup); // we pass the parent group data back to category controller so that it can display the correct units map when user goes back to category screen
 
             if (inputField != null && inputField.getScene() != null) {
                 Scene currentScene = inputField.getScene();
@@ -244,6 +242,7 @@ public class ConvertorController {
                 }
 
                 FXAnimation.fadeIn(view);
+                FXAnimation.slideIn(view);
             }
         } catch (Exception e) {
             e.printStackTrace();

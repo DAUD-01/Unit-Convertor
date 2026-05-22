@@ -87,6 +87,8 @@ public class CategoryController {
                 }
 
                 FXAnimation.fadeIn(view);
+                // FXAnimation.slideIn(view);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
