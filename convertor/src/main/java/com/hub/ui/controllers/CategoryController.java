@@ -20,7 +20,7 @@ public class CategoryController {
     @FXML
     private VBox root;
     @FXML
-    private Label titleLabel; // Injected element field reference from FXML
+    private Label titleLabel; // Injected element field from FXML
 
     private Map<String, Category> currentCategories;
 
@@ -37,6 +37,7 @@ public class CategoryController {
     }
 
     private void loadSubCategories() {
+        // remove white bars
         root.getChildren().removeIf(node -> node instanceof FlowPane || node instanceof Button);
 
         if (currentCategories == null) {
@@ -78,7 +79,7 @@ public class CategoryController {
             Scene currentScene = root.getScene();
             if (currentScene != null) {
                 currentScene.setFill(javafx.scene.paint.Color.web("#101d2d"));
-                currentScene.setRoot(view);
+                currentScene.setRoot(view); // swap scenes
 
                 javafx.stage.Stage stage = (javafx.stage.Stage) currentScene.getWindow();
                 if (stage != null) {
