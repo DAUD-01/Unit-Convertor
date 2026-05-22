@@ -33,19 +33,21 @@ public class ConvertorController {
 
     private String categoryName;
     private Category currentCategory;
-    private Map<String, Category> parentGroup; // Keeps your sub-category units map data
+    private Map<String, Category> parentGroup; // Keeps sub-category units map data
     private String parentGroupName; // Tracks the display title string (e.g., "Common")
 
     private final FormulaService formulaService = new FormulaService();
     private final AlgorithmService algorithmService = new AlgorithmService();
 
     @FXML
-    public void initialize() {
-        inputField.textProperty().addListener((obs, oldVal, newVal) -> autoConvert());
+    public void initialize() { // observable, oldValue, newValue
+        inputField.textProperty().addListener((a, b, c) -> autoConvert());
         fromBox.setOnAction(e -> autoConvert());
         toBox.setOnAction(e -> autoConvert());
     }
 
+    // it store navigation data for going back to category screen and also for
+    // accessing sub-category units map
     public void setParentData(String groupName, Map<String, Category> parentGroup) {
         this.parentGroupName = groupName;
         this.parentGroup = parentGroup;
@@ -58,24 +60,28 @@ public class ConvertorController {
         if (windowHeaderLabel != null && name != null) {
             windowHeaderLabel.setText(name);
         }
-
+        // prevent old items from previous category from showing up
         fromBox.getItems().clear();
         toBox.getItems().clear();
 
         if (category == null)
             return;
 
-        String type = category.type != null ? category.type : "factor";
+        String type = category.type != null ? category.type : "factor"; // set default type to "factor" if not specified because why not
 
         // Keep special handling ONLY for Temperature and NumberBase
-        if (name.equalsIgnoreCase("Temperature") || name.equalsIgnoreCase("NumberBase")
-                || name.equalsIgnoreCase("Number Base")) {
+        if (name.equalsIgnoreCase("Temperature") || 
+            name.equalsIgnoreCase("NumberBase")  || 
+            name.equalsIgnoreCase("Number Base")) 
+            {
             fromBox.setDisable(false);
             toBox.setDisable(false);
             inputField.setPromptText("0.00");
             if (category.units != null) {
+
                 fromBox.getItems().addAll(category.units.keySet());
                 toBox.getItems().addAll(category.units.keySet());
+
                 if (!fromBox.getItems().isEmpty())
                     fromBox.setValue(fromBox.getItems().get(0));
                 if (toBox.getItems().size() > 1)
@@ -84,7 +90,8 @@ public class ConvertorController {
             return;
         }
 
-        if ("formula".equals(type) || "algorithm".equals(type)) {
+        if ("formula".equals(type) || "algorithm".equals(type)) { // if it is formula or algorithm based conversion, we disable the selection, as we don't need it
+
             fromBox.setDisable(true);
             toBox.setDisable(true);
 
@@ -94,7 +101,7 @@ public class ConvertorController {
                 inputField.setPromptText("Enter roman or number: ");
             }
         } else {
-            // This blocks runs for standard conversions AND our new Time unit!
+            // This blocks runs for standard conversions
             fromBox.setDisable(false);
             toBox.setDisable(false);
             inputField.setPromptText("0.00");
@@ -102,6 +109,7 @@ public class ConvertorController {
             if (category.units != null) {
                 fromBox.getItems().addAll(category.units.keySet());
                 toBox.getItems().addAll(category.units.keySet());
+
                 if (!fromBox.getItems().isEmpty())
                     fromBox.setValue(fromBox.getItems().get(0));
                 if (toBox.getItems().size() > 1)
@@ -182,14 +190,14 @@ public class ConvertorController {
 
             // 4. NUMBER BASE INTERCEPT
             if (categoryName.equalsIgnoreCase("NumberBase") || categoryName.equalsIgnoreCase("Number Base")) {
-                int radixFrom = getRadix(fromBox.getValue());
+                int radixFrom = getRadix(fromBox.getValue()); // radix means the base of the number system, e.g., 2 for binary, 10 for decimal, 16 for hexadecimal
                 int radixTo = getRadix(toBox.getValue());
                 long decimal = Long.parseLong(text, radixFrom);
                 resultLabel.setText(Long.toString(decimal, radixTo).toUpperCase());
                 return;
             }
 
-            // 5. STANDARD CONVERSION FALLBACK (Time runs instantly here!)
+            // 5. STANDARD CONVERSION FALLBACK
             double value = Double.parseDouble(text);
             double result = ConversionEngine.convert(value, fromBox.getValue(), toBox.getValue(), currentCategory);
             resultLabel.setText(String.format("%.4f", result));
