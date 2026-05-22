@@ -16,6 +16,6 @@
         <Insets top="80" right="40" bottom="40" left="40"/>
     </padding>
 
-    <Label text="Unit Convertor +" styleClass="title"/>
+    <Label text="Convertix" styleClass="title"/>
 
     </VBox>

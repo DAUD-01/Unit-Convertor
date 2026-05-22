@@ -64,7 +64,7 @@ public class DashboardController {
         icon.getStyleClass().add("category-icon");
 
         switch (title) {
-            case "Common" -> icon.setIconLiteral("fas-cubes");
+            case "Common" -> icon.setIconLiteral("fas-shapes");
             case "Finance" -> icon.setIconLiteral("fas-wallet");
             case "Science" -> icon.setIconLiteral("fas-microscope");
             case "Computing" -> icon.setIconLiteral("fas-desktop");
