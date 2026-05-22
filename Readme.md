@@ -4,7 +4,11 @@ A modern cross-platform desktop unit converter application built with **JavaFX**
 The project uses a fully dynamic JSON-driven conversion system with a clean UI, reusable converter architecture, and modular service-based design.
 
 ---
+## Download
 
+[Download Latest Release](https://github.com/DAUD-01/Unit-Convertor/releases/latest)
+
+---
 ## Table of Contents
 
 * [Features](#features)
