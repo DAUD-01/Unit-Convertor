@@ -96,7 +96,7 @@ public class ConvertorController {
             toBox.setDisable(true);
 
             if (category.inputs != null) {
-                inputField.setPromptText("Enter values: " + String.join(", ", category.inputs));
+                inputField.setPromptText(String.join(", ", category.inputs));
             } else {
                 inputField.setPromptText("Enter roman or number: ");
             }

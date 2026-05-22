@@ -65,7 +65,7 @@
                 "tax_percent"
             ]
         },
-        "SimpleInterest": {
+        "Simple Interest": {
             "type": "formula",
             "inputs": [
                 "Principal",
@@ -73,7 +73,7 @@
                 "Time(Years)"
             ]
         },
-        "CompoundInterest": {
+        "Compound Interest": {
             "type": "formula",
             "inputs": [
                 "Principal",
