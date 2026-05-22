@@ -1,10 +1,11 @@
 package com.hub.ui.controllers;
 
 import com.hub.core.ConversionEngine;
-import com.hub.models.Category;
 import com.hub.services.AlgorithmService;
 import com.hub.services.FormulaService;
+import com.hub.models.Category;
 import com.hub.ui.utils.FXAnimation;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
