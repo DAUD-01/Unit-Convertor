@@ -14,8 +14,7 @@ public class Main extends Application { // this is the main class that launches 
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
 
         Scene scene = new Scene(loader.load());
 

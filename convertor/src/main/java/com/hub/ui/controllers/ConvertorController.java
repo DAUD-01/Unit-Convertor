@@ -140,7 +140,7 @@ public class ConvertorController {
                     } catch (NumberFormatException nfe) {
                         // If it's not a number, assume the user is typing Roman characters -> Convert
                         // Roman -> Number
-                        Object res = algorithmService.execute("fromroman", text.toUpperCase());
+                        Object res = algorithmService.execute("fromrovman", text.toUpperCase());
                         resultLabel.setText(res.toString());
                     }
                 }
