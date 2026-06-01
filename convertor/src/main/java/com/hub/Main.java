@@ -25,7 +25,7 @@ public class Main extends Application { // this is the main class that launches 
         stage.setFullScreen(true);
 
         // --- ADD APPLICATION WINDOW ICON ---
-        try (InputStream iconStream = getClass().getResourceAsStream("/assets/icon.ico")) {
+        try (InputStream iconStream = getClass().getResourceAsStream("/assets/icon.png")) {
             if (iconStream != null) {
                 stage.getIcons().add(new Image(iconStream));
             } else {
